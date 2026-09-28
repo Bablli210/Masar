@@ -2,3 +2,4 @@ site/_preview.html
 video/*.wav
 video/preview/
 video/__pycache__/
+site/dist/
