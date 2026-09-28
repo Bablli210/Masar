@@ -142,14 +142,12 @@ section{position:relative}
 .op{display:grid;place-items:center;font-size:2.4rem;font-weight:300;color:var(--ink-2)}
 
 /* masar chapter */
-.masar-open{position:relative;border-radius:28px;overflow:hidden;background:var(--ink);color:var(--paper);min-height:min(78vh,760px);display:grid;align-items:end}
-.masar-open img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55;transform:scale(1.12);transition:transform 1.8s var(--ease)}
-.masar-open.in img{transform:scale(1)}
-.masar-open .inner{position:relative;padding:clamp(28px,5vw,64px);display:grid;gap:16px}
+.masar-open{border:1.5px solid var(--hair);border-radius:28px;overflow:hidden;background:var(--paper);display:grid;gap:clamp(8px,2vw,24px);padding-top:clamp(28px,5vw,64px)}
+.masar-open .inner{padding-inline:clamp(28px,5vw,64px);display:grid;gap:16px}
 .masar-open h2{font-size:clamp(4rem,2rem + 10vw,10rem);letter-spacing:-.075em;line-height:.85}
-.masar-open .ar{font-size:clamp(2rem,1.2rem + 3vw,4rem);color:var(--oat)}
-.masar-open .cap{position:absolute;top:clamp(20px,3vw,32px);left:clamp(28px,5vw,64px);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,240,240,.75)}
+.masar-open .ar{font-size:clamp(2rem,1.2rem + 3vw,4rem);color:var(--ink-2)}
 .masar-open .sub{font-size:clamp(1.2rem,1rem + 1vw,1.8rem);letter-spacing:-.03em}
+.masar-open .illo{width:100%;height:auto;margin-bottom:-2px}
 .strike{position:relative;display:inline-block}
 .strike svg{position:absolute;left:-4%;top:48%;width:108%;height:.5em;overflow:visible;transform:translateY(-50%)}
 .strike path{fill:none;stroke:var(--ink);stroke-width:6;stroke-linecap:round}
@@ -178,17 +176,11 @@ section{position:relative}
 .cities{display:flex;gap:10px;flex-wrap:wrap}
 
 /* quote */
-.quote-band{background:var(--ink);color:var(--paper)}
-.quote-band .grid{display:grid;grid-template-columns:1fr;gap:18px;padding-block:clamp(72px,10vw,140px)}
-@media (min-width:900px){ .quote-band .grid{grid-template-columns:1.3fr 1fr;align-items:stretch} }
-.photo{position:relative;overflow:hidden;border-radius:20px;background:#222}
-.photo img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.08);transition:transform 1.6s var(--ease)}
-.photo.in img,.no-motion .photo img{transform:scale(1)}
-.photo figcaption{position:absolute;left:18px;bottom:14px;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,240,240,.85)}
-.quote-band blockquote{margin:0;font-size:clamp(2rem,1.2rem + 3.4vw,4.4rem);letter-spacing:-.055em;line-height:1.02;font-weight:450}
-.quote-band .stack{display:grid;gap:18px;grid-template-rows:1fr 1fr;min-height:420px}
-.quote-band .main{min-height:420px;display:grid}
-.quote-band .main .over{position:absolute;inset:auto 0 0 0;padding:clamp(22px,4vw,44px);background:linear-gradient(transparent,rgba(17,17,17,.85) 45%)}
+.quote-band{border-block:1.5px solid var(--hair)}
+.quote-band .grid{display:grid;grid-template-columns:1fr;gap:clamp(32px,5vw,72px);align-items:end;padding-block:clamp(72px,10vw,140px) 0}
+@media (min-width:900px){ .quote-band .grid{grid-template-columns:1fr 1.1fr} .quote-band .head{padding-bottom:clamp(72px,10vw,140px)} }
+.quote-band blockquote{margin:0;font-size:clamp(2.4rem,1.2rem + 4vw,5rem);letter-spacing:-.06em;line-height:1;font-weight:450;text-wrap:balance}
+.quote-band .illo{width:100%;max-width:720px;justify-self:end;margin-bottom:-2px}
 
 /* why */
 .meet{list-style:none;padding:0;margin:0;display:grid}
@@ -237,7 +229,6 @@ section{position:relative}
 /* receive */
 .receive{display:grid;gap:clamp(32px,5vw,64px);grid-template-columns:1fr}
 @media (min-width:900px){ .receive{grid-template-columns:.8fr 1.2fr} }
-.receive .photo{min-height:420px}
 .lists{display:grid;gap:36px;grid-template-columns:1fr}
 @media (min-width:640px){ .lists{grid-template-columns:1fr 1fr} }
 .lists ol{list-style:none;padding:0;margin:14px 0 0;display:grid;counter-reset:r}
@@ -574,13 +565,40 @@ section{position:relative}
 <section class="sec" id="masar" data-chapter="IV" data-name="Masar" style="padding-top:0">
   <div class="container">
     <div class="masar-open" data-reveal id="masarOpen">
-      <img src="assets/dubai-hall.jpg" alt="A packed Masar seminar hall in Dubai" loading="lazy">
-      <span class="cap">Masar Dubai, 2025</span>
       <div class="inner">
-        <span class="eyebrow" style="color:var(--oat)"><b style="color:var(--paper)">Chapter IV</b> Masar</span>
+        <span class="eyebrow"><b>Chapter IV</b> Masar</span>
         <h2>Masar <span class="ar" lang="ar" dir="rtl">مسار</span></h2>
-        <p class="sub">Your gate to university life. <span style="opacity:.6">Arabic for “the path”.</span></p>
+        <p class="sub">Your gate to university life. <span class="muted">Arabic for “the path”.</span></p>
       </div>
+      <svg class="illo" data-draw viewBox="0 0 1000 560" role="img" aria-label="An audience seen from behind at a Masar seminar, one student raising a hand, a speaker at the podium beside a screen showing a route">
+        <g class="art">
+<path class="f" d="M250 34 L764 24 L772 256 L256 264 Z"/>
+<path class="l" d="M300 30 L760 24"/><path class="l" d="M768 42 C770 120 771 190 772 244"/><path class="l" d="M470 260 L740 256"/>
+<path class="l" d="M318 206 C398 124 468 224 540 152 S658 92 716 112"/>
+<circle class="dot" cx="318" cy="206" r="11"/><circle class="dot" cx="540" cy="152" r="11"/><circle class="l" cx="720" cy="108" r="13"/>
+<path class="s" d="M136 360 C134 316 150 296 182 294 C214 296 230 316 228 360"/>
+<path class="s" d="M160 262 C160 238 172 226 184 226 C198 226 208 238 208 262 C208 284 198 296 184 296 C170 296 160 284 160 262 Z"/>
+<path class="k" d="M158 256 C154 226 174 214 186 216 C204 218 214 232 210 256 C200 242 172 240 158 256 Z"/>
+<path class="s" d="M204 330 C228 318 244 300 252 280"/>
+<path class="k" d="M128 344 L240 340 L232 440 L136 444 Z"/>
+<path class="p" d="M160 372 L208 370"/>
+<path class="s" d="M36 520 C36 416 58 398 90 398 C122 398 144 416 144 520"/><path class="k" d="M60 372 C60 333 120 333 120 372 C120 400 60 400 60 372 Z"/>
+<path class="k" d="M200 372 C200 332 260 332 260 372 C260 396 269 411 287 423 L173 423 C191 411 200 396 200 372 Z"/><path class="k" d="M173 520 C173 438 196 418 230 418 C264 418 287 438 287 520"/>
+<path class="s" d="M312 520 C312 431 335 411 370 411 C405 411 428 431 428 520"/><path class="s" d="M340 372 C340 336 362 327 370 327 C378 327 400 336 400 372 C400 396 409 411 427 423 L313 423 C331 411 340 396 340 372 Z"/><path class="l t" d="M370 328 C366 366 355 399 337 418"/><path class="l" style="stroke-width:6" d="M342 356 C361 364 379 364 398 356"/><path class="l" style="stroke-width:6" d="M342 363 C361 371 379 371 398 363"/>
+<path class="s" d="M453 520 C453 431 476 411 510 411 C544 411 567 431 567 520"/><path class="s" d="M482 372 C482 334 538 334 538 372 C538 395 547 409 564 420 L456 420 C473 409 482 395 482 372 Z"/><path class="l t" d="M501 339 C492 372 483 399 471 417 M522 342 C525 372 537 399 549 417"/>
+<path class="s" d="M596 520 C596 416 618 398 650 398 C682 398 704 416 704 520"/><path class="k" d="M620 372 C620 333 680 333 680 372 C680 400 620 400 620 372 Z"/>
+<path class="k" d="M760 372 C760 332 820 332 820 372 C820 396 829 411 847 423 L733 423 C751 411 760 396 760 372 Z"/><path class="k" d="M733 520 C733 438 756 418 790 418 C824 418 847 438 847 520"/>
+<path class="s" d="M876 520 C876 416 898 398 930 398 C962 398 984 416 984 520"/><path class="s" d="M900 372 C900 333 960 333 960 372 C960 400 900 400 900 372 Z"/><path class="l t" d="M915 348 C912 366 918 381 916 388 M933 344 C932 363 936 378 934 390"/>
+<path class="s" d="M546 500 C560 450 566 400 560 352 L592 348 C600 400 594 454 578 506 Z"/>
+<path class="s" d="M556 358 C548 332 562 314 578 316 C596 318 604 336 596 358 C588 372 562 374 556 358 Z"/>
+<path class="l t" d="M566 326 L564 302 M578 322 L578 296 M590 326 L592 304"/>
+<path class="s" d="M68 580 C68 569 101 541 150 541 C199 541 232 569 232 580"/><path class="s" d="M108 486 C108 436 140 423 150 423 C160 423 192 436 192 486 C192 520 205 541 230 557 L70 557 C95 541 108 520 108 486 Z"/><path class="l t" d="M150 425 C144 478 129 524 104 551"/><path class="l" style="stroke-width:8" d="M111 463 C137 475 163 475 189 463"/><path class="l" style="stroke-width:8" d="M111 473 C137 485 163 485 189 473"/>
+<path class="k" d="M288 486 C288 429 372 429 372 486 C372 520 385 541 410 557 L250 557 C275 541 288 520 288 486 Z"/><path class="k" d="M250 580 C250 579 282 551 330 551 C378 551 410 579 410 580"/>
+<path class="s" d="M424 580 C424 548 455 522 500 522 C545 522 576 548 576 580"/><path class="s" d="M458 486 C458 431 542 431 542 486 C542 526 458 526 458 486 Z"/><path class="l t" d="M479 452 C475 478 483 499 481 509 M504 446 C502 473 508 494 506 511"/>
+<path class="s" d="M604 580 C604 548 635 522 680 522 C725 522 756 548 756 580"/><path class="k" d="M638 486 C638 431 722 431 722 486 C722 526 638 526 638 486 Z"/>
+<path class="s" d="M780 580 C780 569 812 541 860 541 C908 541 940 569 940 580"/><path class="s" d="M820 486 C820 432 900 432 900 486 C900 518 912 538 936 554 L784 554 C808 538 820 518 820 486 Z"/><path class="l t" d="M847 440 C835 486 822 524 805 549 M877 444 C881 486 898 524 915 549"/>
+        </g>
+      </svg>
     </div>
 
     <div class="split" style="margin-top:clamp(72px,10vw,140px);align-items:start">
@@ -641,17 +659,32 @@ section{position:relative}
 <section class="quote-band" aria-label="Masar Riyadh, 2026">
   <div class="container">
     <div class="grid">
-      <figure class="photo main" data-reveal style="margin:0">
-        <img src="assets/riyadh-audience.jpg" alt="Students and parents in the audience at Masar Riyadh" loading="lazy">
-        <div class="over">
-          <blockquote>“Decision ready attendees, not casual visitors.”</blockquote>
-          <p style="margin-top:14px;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;opacity:.75">Masar Riyadh, 2026</p>
-        </div>
-      </figure>
-      <div class="stack">
-        <figure class="photo" data-reveal style="margin:0;--i:1"><img src="assets/riyadh-floor.jpg" alt="Students and parents moving between booths at Masar Riyadh" loading="lazy"></figure>
-        <figure class="photo" data-reveal style="margin:0;--i:2"><img src="assets/riyadh-booth.jpg" alt="A student and parent in conversation at a university booth" loading="lazy"></figure>
+      <div class="head">
+        <span class="eyebrow" data-reveal>Masar Riyadh, 2026</span>
+        <blockquote data-reveal>“Decision ready attendees, not casual visitors.”</blockquote>
+        <p class="muted" data-reveal style="max-width:28em">Students arrive with their parents and their shortlists. They leave with a roadmap, and your university on it.</p>
       </div>
+      <svg class="illo" data-draw viewBox="0 0 800 600" role="img" aria-label="A university representative with glasses hands a brochure across her booth table to a student in a shayla">
+        <g class="art">
+<path class="k" d="M468 40 L700 34 L704 172 L472 178 Z"/>
+<path class="p" d="M508 92 L664 88 M508 124 L622 121"/>
+<path class="s" d="M430 476 C430 386 470 336 560 332 C650 336 690 386 690 476 Z"/>
+<path class="k" d="M502 262 C496 190 530 168 560 168 C592 168 626 190 620 262 C624 300 640 320 662 338 C620 352 500 352 458 338 C480 320 498 300 502 262 Z"/>
+<path class="s" d="M520 252 C520 216 540 202 560 202 C582 202 600 216 600 252 C600 288 582 306 560 306 C540 306 520 288 520 252 Z"/>
+<circle class="l t" cx="542" cy="250" r="15"/><circle class="l t" cx="578" cy="250" r="15"/><path class="l t" d="M557 249 L563 249"/>
+<circle class="dot" cx="542" cy="252" r="3.5"/><circle class="dot" cx="578" cy="252" r="3.5"/>
+<path class="l t" d="M562 262 L557 278 L565 279"/><path class="l t" d="M547 290 C555 298 568 298 576 289"/>
+<path class="s" d="M300 362 L354 354 L362 424 L308 432 Z"/><path class="l t" d="M316 378 L344 374 M318 394 L338 391"/>
+<path class="s" d="M486 362 C446 382 406 392 368 394 L368 430 C414 430 454 422 494 406 Z"/>
+<path class="s" d="M378 390 C356 382 336 394 336 412 C336 430 356 440 378 432 Z"/>
+<path class="k" d="M600 476 L608 392 L724 394 L720 476 Z"/>
+<path class="s" d="M296 474 L784 468 L774 604 L306 604 Z"/><path class="l t" d="M330 510 L750 506"/>
+<path class="s" d="M282 506 C298 474 304 452 304 438 L334 438 C334 464 328 492 312 516 Z"/>
+<path class="s" d="M306 444 C296 424 310 408 326 412 C342 416 346 434 336 446 C328 456 312 456 306 444 Z"/>
+<path class="k" d="M126 420 C126 352 226 352 226 420 C226 460 241 485 271 505 L81 505 C111 485 126 460 126 420 Z"/><path class="k" d="M81 610 C81 531 119 498 176 498 C233 498 271 531 271 610"/>
+<path class="s" d="M128 530 C130 512 222 512 224 530 L230 610 L122 610 Z"/><path class="l t" d="M140 570 L212 568"/>
+        </g>
+      </svg>
     </div>
   </div>
 </section>
@@ -791,10 +824,33 @@ section{position:relative}
 <section class="sec" id="receive" data-chapter="VII" data-name="Packages" style="padding-top:0">
   <div class="container">
     <div class="receive">
-      <figure class="photo" data-reveal style="margin:0">
-        <img src="assets/booth-rep.jpg" alt="A university representative smiling at her Masar booth" loading="lazy">
-        <figcaption>At every fair</figcaption>
-      </figure>
+      <svg class="illo" data-draw viewBox="0 0 540 600" role="img" aria-label="A smiling university representative waves from a Masar booth with a roll-up banner, a video screen, flyers and a branded mug" style="max-width:520px;justify-self:center;width:100%">
+        <g class="art">
+<path class="f" d="M56 60 L476 50 L484 430 L62 438 Z"/>
+<path class="l" d="M110 56 L472 50"/><path class="l" d="M478 66 C480 180 482 300 484 420"/>
+<path class="k" d="M84 92 L168 90 L170 476 L86 478 Z"/>
+<circle class="p" cx="127" cy="150" r="22"/><path class="p" d="M104 206 L150 205 M104 230 L140 229 M104 254 L146 253"/>
+<path class="l t" d="M104 478 L96 512 M150 476 L158 510"/>
+<path class="k" d="M226 104 L436 98 L440 226 L230 232 Z"/>
+<path class="p" d="M316 142 L316 190 L356 166 Z"/>
+<path class="s" d="M250 470 C248 392 280 350 346 346 C412 350 444 392 442 470 Z"/>
+<path class="l t" d="M318 350 L346 380 L374 350"/>
+<path class="s" d="M306 290 C304 252 322 232 346 232 C372 232 390 252 388 290 C388 326 370 346 346 346 C322 346 306 326 306 290 Z"/>
+<path class="l t" d="M308 292 C294 288 294 312 308 312"/><path class="l t" d="M386 292 C400 288 400 312 386 312"/>
+<path class="k" d="M302 280 C296 238 322 222 348 222 C376 222 396 240 392 280 C380 262 360 258 346 262 C330 258 312 264 302 280 Z"/>
+<circle class="dot" cx="330" cy="292" r="4"/><circle class="dot" cx="364" cy="292" r="4"/>
+<path class="l t" d="M348 298 L343 316 L352 317"/><path class="l t" d="M330 326 C340 336 356 336 366 325"/>
+<path class="s" d="M276 392 C250 360 236 320 234 282 L268 278 C272 314 284 346 304 372 Z"/>
+<path class="s" d="M232 290 C222 262 236 240 254 242 C274 244 282 266 272 290 C264 304 240 306 232 290 Z"/>
+<path class="l t" d="M236 254 L226 232 M248 246 L244 220 M262 248 L266 224 M274 260 L286 244"/>
+<path class="s" d="M52 452 L492 444 L482 580 L62 586 Z"/>
+<path class="l t" d="M90 492 L452 486"/>
+<path class="s" d="M320 416 L400 410 L404 444 L324 450 Z"/><path class="l t" d="M334 426 L384 422"/>
+<path class="s" d="M420 404 L452 404 L450 446 L422 446 Z"/><path class="l t" d="M452 414 C468 414 468 434 451 434"/>
+<path class="l t" d="M494 150 L520 134 M500 190 L530 190 M490 110 L504 84"/>
+
+        </g>
+      </svg>
       <div class="head" style="align-content:center">
         <span class="eyebrow" data-reveal><b>Chapter VII</b> At every fair</span>
         <h2><span class="line"><span>What your university</span></span><span class="line"><span>receives.</span></span></h2>
@@ -978,7 +1034,7 @@ section{position:relative}
   }
 
   /* ---- in-view observer ---- */
-  const targets = document.querySelectorAll('[data-reveal], .line, .illo[data-draw], [data-count], #bars, #chart, #strike, .photo, #masarOpen');
+  const targets = document.querySelectorAll('[data-reveal], .line, .illo[data-draw], [data-count], #bars, #chart, #strike, #masarOpen');
   const io = new IntersectionObserver(entries => {
     entries.forEach(en => {
       if (!en.isIntersecting) return;
