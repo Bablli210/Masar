@@ -1,0 +1,1121 @@
+<title>Masar for Universities</title>
+<meta name="description" content="Masar, the university roadshow by GET ED and Eshra7ly. A proposal for universities, 2026/27.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300..700&family=Alexandria:wght@300..600&display=swap">
+<style>
+:root{
+  color-scheme: light;
+  --paper:#F0F0F0; --oat:#E5DAD0; --ink:#111111; --ink-2:#555555;
+  --hair:#9B9B9B; --hair-strong:#8A8A8A; --blue:#1AA0E6;
+  --font:"Montserrat","Alexandria",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-ar:"Alexandria","Montserrat",system-ui,sans-serif;
+  --gutter:clamp(16px,4vw,64px);
+  --max:1240px;
+  --rail:0px;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --line:7;
+}
+@media (min-width:1100px){ :root{ --rail:88px; } }
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-size:17px;line-height:1.55;font-weight:400;-webkit-font-smoothing:antialiased}
+.wrap{overflow-x:clip}
+.container{max-width:calc(var(--max) + var(--rail));margin-inline:auto;padding-inline:calc(var(--gutter) + var(--rail)) var(--gutter)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:4px}
+.ar{font-family:var(--font-ar);letter-spacing:0}
+h1,h2,h3{font-weight:450;letter-spacing:-.055em;line-height:1;margin:0;text-wrap:balance}
+h2{font-size:clamp(2.4rem,1.2rem + 4.2vw,5.4rem)}
+h3{font-size:clamp(1.35rem,1rem + .9vw,1.8rem);letter-spacing:-.035em;line-height:1.1}
+p{margin:0}
+.lede{font-size:clamp(1.05rem,.95rem + .4vw,1.3rem);line-height:1.5;max-width:34em;letter-spacing:-.01em}
+.muted{color:var(--ink-2)}
+.eyebrow{display:inline-flex;align-items:center;gap:.6em;font-size:.72rem;font-weight:550;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-2)}
+.eyebrow b{font-weight:550;color:var(--ink)}
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:.5em;min-height:2.4em;padding:.35em 1.3em;border:1.5px solid var(--hair);border-radius:999px;font-size:.85rem;font-weight:450;letter-spacing:-.01em;white-space:nowrap;background:none;color:var(--ink);text-decoration:none;transition:background .3s var(--ease),border-color .3s var(--ease)}
+a.pill,button.pill{border-color:var(--hair-strong);cursor:pointer;font-family:inherit}
+a.pill:hover,button.pill:hover{background:var(--oat);border-color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:.7em;padding:.95em 1.6em;border-radius:999px;background:var(--ink);color:var(--paper);text-decoration:none;font-weight:500;font-size:.95rem;letter-spacing:-.01em;border:0;cursor:pointer;font-family:inherit;transition:transform .35s var(--ease)}
+.btn:hover{transform:translateY(-2px)}
+.btn .arr{display:inline-block;transition:transform .35s var(--ease)}
+.btn:hover .arr{transform:translateX(5px)}
+section{position:relative}
+.sec{padding-block:clamp(88px,12vw,168px)}
+.split{display:grid;grid-template-columns:1fr;gap:clamp(40px,6vw,96px);align-items:center}
+@media (min-width:900px){ .split{grid-template-columns:1fr 1fr} .split.flip > :first-child{order:2} }
+.head{display:grid;gap:22px}
+.hr{height:1.5px;background:var(--hair);border:0;margin:0}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--paper) 86%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1.5px solid transparent;transition:border-color .3s}
+.top.scrolled{border-bottom-color:rgba(17,17,17,.1)}
+.top .container{display:flex;align-items:center;justify-content:space-between;gap:16px;height:68px}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none}
+.brand img{height:30px;width:auto}
+.brand .by{font-size:.75rem;color:var(--ink-2);white-space:nowrap}
+.nav{display:flex;align-items:center;gap:8px}
+.nav .pill{display:none}
+@media (min-width:980px){ .nav .pill{display:inline-flex} }
+.nav .btn{padding:.7em 1.2em;font-size:.85rem}
+@media (max-width:560px){ .brand .by{display:none} }
+
+/* progress (mobile) */
+.progress{position:fixed;left:0;right:0;top:0;height:3px;z-index:60;pointer-events:none}
+.progress i{display:block;height:100%;width:100%;background:var(--blue);transform-origin:0 50%;transform:scaleX(var(--p,0))}
+@media (min-width:1100px){ .progress{display:none} }
+
+/* rail */
+.rail{position:fixed;left:0;top:0;bottom:0;width:var(--rail);z-index:40;display:none}
+@media (min-width:1100px){ .rail{display:block} }
+.rail svg{position:absolute;left:0;top:92px;width:100%;height:calc(100% - 132px);overflow:visible}
+.rail .track{fill:none;stroke:rgba(17,17,17,.14);stroke-width:2;stroke-dasharray:2 7;stroke-linecap:round}
+.rail .run{fill:none;stroke:var(--blue);stroke-width:3.5;stroke-linecap:round}
+.rail .head-dot{fill:var(--blue)}
+.stops{position:absolute;left:0;top:92px;width:100%;height:calc(100% - 132px)}
+.stop{position:absolute;transform:translate(-50%,-50%);width:26px;height:26px;border-radius:50%;border:0;background:none;padding:0;cursor:pointer;display:grid;place-items:center}
+.stop::before{content:"";width:11px;height:11px;border-radius:50%;background:var(--paper);border:2px solid var(--ink);transition:transform .3s var(--ease),background .3s}
+.stop.passed::before{background:var(--ink)}
+.stop.current::before{transform:scale(1.35)}
+.stop span{position:absolute;left:24px;white-space:nowrap;font-size:.72rem;font-weight:500;letter-spacing:.02em;background:var(--ink);color:var(--paper);padding:.35em .8em;border-radius:999px;opacity:0;transform:translateX(-6px);pointer-events:none;transition:opacity .25s,transform .25s var(--ease)}
+.stop:hover span,.stop:focus-visible span{opacity:1;transform:none}
+.stop em{font-style:normal;opacity:.6;margin-right:.5em}
+
+/* hero */
+.hero{padding-block:clamp(40px,6vw,72px) clamp(56px,8vw,110px)}
+.hero .pills{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.hero-grid{display:grid;grid-template-columns:1fr;gap:28px;align-items:end;margin-top:clamp(28px,5vw,56px)}
+@media (min-width:900px){ .hero-grid{grid-template-columns:1.05fr .95fr} }
+.hero h1{font-size:clamp(4.6rem,2rem + 12vw,12.5rem);letter-spacing:-.075em;line-height:.86;display:flex;align-items:baseline;gap:.12em;flex-wrap:wrap}
+.hero h1 .ar{font-size:.42em;font-weight:400;color:var(--ink-2);letter-spacing:0;transform:translateY(-.1em)}
+.hero .tag{font-size:clamp(1.5rem,1rem + 2vw,2.6rem);letter-spacing:-.045em;line-height:1.08;margin-top:22px;font-weight:450}
+.hero .intro{margin-top:26px;max-width:30em;color:var(--ink-2)}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px;align-items:center}
+.hero .illo{width:100%;max-width:620px;justify-self:center}
+.scrollcue{display:flex;align-items:center;gap:12px;margin-top:44px;font-size:.8rem;color:var(--ink-2)}
+.scrollcue i{position:relative;width:44px;height:1.5px;background:var(--hair);overflow:hidden}
+.scrollcue i::after{content:"";position:absolute;inset:0;background:var(--ink);transform:translateX(-100%);animation:cue 2.2s var(--ease) infinite}
+@keyframes cue{60%,100%{transform:translateX(100%)}}
+.hero-foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:clamp(28px,4vw,48px)}
+
+/* line reveal */
+.line{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
+.line > span{display:inline-block}
+
+/* foreword */
+.foreword .quote{font-size:clamp(1.7rem,1rem + 2.6vw,3.3rem);letter-spacing:-.045em;line-height:1.12;font-weight:450;max-width:22em;text-wrap:pretty}
+.foreword .quote .w{transition:opacity .35s linear}
+.foreword .sign{display:flex;align-items:center;gap:18px;margin-top:44px;flex-wrap:wrap}
+.foreword .sign img{height:30px;width:auto}
+.foreword .sign .x{color:var(--ink-2)}
+
+/* numbers */
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 24px}
+.stat{display:grid;gap:10px;border-top:1.5px solid var(--ink);padding-top:16px}
+.stat .n{font-size:clamp(2.8rem,1.6rem + 3.6vw,5rem);letter-spacing:-.065em;line-height:.95;font-weight:450;font-variant-numeric:tabular-nums}
+.stat .k{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);font-weight:550}
+
+/* country bars */
+.bars{display:grid;gap:14px;margin-top:8px}
+.bar{display:grid;grid-template-columns:7.5em 1fr 3.4em;gap:14px;align-items:center;font-size:.92rem}
+.bar .t{height:14px;border-radius:99px;background:rgba(17,17,17,.07);overflow:hidden}
+.bar .t i{display:block;height:100%;border-radius:99px;background:var(--ink);width:calc(var(--v) * 1%);transform-origin:0 50%;transition:transform 1.2s var(--ease)}
+.bar.egy .t i,.bar.oth .t i{background:var(--oat);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.bar .v{text-align:right;font-variant-numeric:tabular-nums}
+.legend{display:flex;gap:20px;flex-wrap:wrap;font-size:.8rem;color:var(--ink-2);margin-top:6px}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.legend i{width:14px;height:14px;border-radius:50%;background:var(--ink)}
+.legend i.o{background:var(--oat);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.source{font-size:.72rem;color:var(--ink-2);letter-spacing:.04em;margin-top:18px}
+.gulf{display:flex;align-items:baseline;gap:14px;margin-top:4px}
+.gulf b{font-size:clamp(2rem,1.4rem + 2vw,3rem);font-weight:450;letter-spacing:-.06em}
+
+/* partnership */
+.equation{display:grid;grid-template-columns:1fr;gap:18px;margin-top:clamp(40px,6vw,72px)}
+@media (min-width:900px){ .equation{grid-template-columns:1fr auto 1fr auto 1.15fr;align-items:stretch} }
+.eq{border:1.5px solid var(--hair);border-radius:22px;padding:28px;display:grid;gap:14px;align-content:start}
+.eq .eyebrow{color:var(--ink)}
+.eq p{font-size:1.15rem;letter-spacing:-.02em;line-height:1.35}
+.eq.together{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.eq.together .eyebrow{color:var(--oat)}
+.eq img{height:26px;width:auto;justify-self:start}
+.op{display:grid;place-items:center;font-size:2.4rem;font-weight:300;color:var(--ink-2)}
+
+/* masar chapter */
+.masar-open{position:relative;border-radius:28px;overflow:hidden;background:var(--ink);color:var(--paper);min-height:min(78vh,760px);display:grid;align-items:end}
+.masar-open img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55;transform:scale(1.12);transition:transform 1.8s var(--ease)}
+.masar-open.in img{transform:scale(1)}
+.masar-open .inner{position:relative;padding:clamp(28px,5vw,64px);display:grid;gap:16px}
+.masar-open h2{font-size:clamp(4rem,2rem + 10vw,10rem);letter-spacing:-.075em;line-height:.85}
+.masar-open .ar{font-size:clamp(2rem,1.2rem + 3vw,4rem);color:var(--oat)}
+.masar-open .cap{position:absolute;top:clamp(20px,3vw,32px);left:clamp(28px,5vw,64px);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,240,240,.75)}
+.masar-open .sub{font-size:clamp(1.2rem,1rem + 1vw,1.8rem);letter-spacing:-.03em}
+.strike{position:relative;display:inline-block}
+.strike svg{position:absolute;left:-4%;top:48%;width:108%;height:.5em;overflow:visible;transform:translateY(-50%)}
+.strike path{fill:none;stroke:var(--ink);stroke-width:6;stroke-linecap:round}
+.aims{list-style:none;padding:0;margin:0;display:grid;counter-reset:aim}
+.aims li{display:grid;grid-template-columns:2.4em 1fr;gap:12px;padding-block:16px;border-top:1.5px solid var(--hair);counter-increment:aim;font-size:1.02rem}
+.aims li::before{content:counter(aim,lower-roman) ".";font-style:italic;color:var(--ink-2)}
+.aims b{font-weight:600}
+
+/* record */
+.record-top{display:grid;gap:40px;grid-template-columns:1fr}
+@media (min-width:900px){ .record-top{grid-template-columns:1fr 1fr;align-items:end} }
+.chart{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,2vw,28px);align-items:end;height:clamp(260px,34vw,400px);padding-top:112px;border-bottom:1.5px solid var(--ink);margin-top:clamp(40px,6vw,72px)}
+.col{position:relative;height:calc(var(--r) * 1%);display:flex;flex-direction:column;justify-content:flex-end}
+.col .reg{position:absolute;inset:0;background:var(--oat);border:1.5px solid var(--ink);border-bottom:0;border-radius:14px 14px 0 0;transform-origin:50% 100%;transition:transform 1.1s var(--ease)}
+.col .att{position:relative;height:calc(var(--a) / var(--r2) * 100%);background:var(--ink);border-radius:10px 10px 0 0;margin-inline:10px;transform-origin:50% 100%;transition:transform 1.1s var(--ease)}
+.col .val{position:absolute;bottom:100%;left:0;right:0;text-align:center;padding-bottom:10px;font-size:clamp(1rem,.8rem + .8vw,1.5rem);letter-spacing:-.04em;font-variant-numeric:tabular-nums;transition:opacity .5s}
+.col .att-v{position:absolute;left:0;right:0;top:10px;text-align:center;color:var(--paper);font-size:.8rem;font-variant-numeric:tabular-nums}
+.col .mult{position:absolute;left:50%;top:-96px;translate:-50% 0;background:var(--ink);color:var(--paper);padding:.35em .8em;border-radius:999px;font-size:.85rem;font-weight:500;white-space:nowrap;transition:transform .6s var(--ease) 1s,opacity .4s 1s}
+.xlabels{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,2vw,28px);margin-top:12px;font-size:.9rem}
+.xlabels span{text-align:center}
+.xlabels small{display:block;color:var(--ink-2);font-size:.78rem}
+.chart-legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:22px;font-size:.8rem;color:var(--ink-2)}
+.chart-legend span{display:inline-flex;align-items:center;gap:8px}
+.chart-legend i{width:14px;height:14px;border-radius:4px;background:var(--ink)}
+.chart-legend i.o{background:var(--oat);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.cities{display:flex;gap:10px;flex-wrap:wrap}
+
+/* quote */
+.quote-band{background:var(--ink);color:var(--paper)}
+.quote-band .grid{display:grid;grid-template-columns:1fr;gap:18px;padding-block:clamp(72px,10vw,140px)}
+@media (min-width:900px){ .quote-band .grid{grid-template-columns:1.3fr 1fr;align-items:stretch} }
+.photo{position:relative;overflow:hidden;border-radius:20px;background:#222}
+.photo img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.08);transition:transform 1.6s var(--ease)}
+.photo.in img,.no-motion .photo img{transform:scale(1)}
+.photo figcaption{position:absolute;left:18px;bottom:14px;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,240,240,.85)}
+.quote-band blockquote{margin:0;font-size:clamp(2rem,1.2rem + 3.4vw,4.4rem);letter-spacing:-.055em;line-height:1.02;font-weight:450}
+.quote-band .stack{display:grid;gap:18px;grid-template-rows:1fr 1fr;min-height:420px}
+.quote-band .main{min-height:420px;display:grid}
+.quote-band .main .over{position:absolute;inset:auto 0 0 0;padding:clamp(22px,4vw,44px);background:linear-gradient(transparent,rgba(17,17,17,.85) 45%)}
+
+/* why */
+.meet{list-style:none;padding:0;margin:0;display:grid}
+.meet li{display:grid;grid-template-columns:2.4em 1fr;gap:12px;padding-block:18px;border-top:1.5px solid var(--hair)}
+.meet li span{font-style:italic;color:var(--ink-2)}
+.diffs{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:clamp(48px,7vw,88px)}
+.diff{border:1.5px solid var(--hair);border-radius:20px;padding:24px;display:grid;gap:10px;align-content:start;transition:background .35s var(--ease),transform .35s var(--ease),border-color .35s}
+.diff:hover{background:var(--oat);border-color:var(--ink);transform:translateY(-4px)}
+.diff h3{font-size:1.25rem}
+.diff p{font-size:.95rem;color:var(--ink-2)}
+
+/* formats (pinned horizontal) */
+.formats{height:auto}
+.formats .sticky{position:relative}
+.formats .intro{display:grid;gap:18px;grid-template-columns:1fr;align-items:end;padding-block:clamp(88px,12vw,140px) 40px}
+@media (min-width:900px){ .formats .intro{grid-template-columns:1fr 1fr} }
+.track{display:grid;grid-template-columns:1fr;gap:16px;padding-bottom:clamp(88px,12vw,140px)}
+.fcard{border:1.5px solid var(--hair);border-radius:24px;padding:clamp(24px,3vw,40px);display:grid;gap:16px;align-content:start;background:var(--paper)}
+.fcard .no{font-size:.8rem;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.fcard svg{width:min(220px,60%);height:auto}
+.fcard h3{font-size:clamp(1.8rem,1.2rem + 1.6vw,2.8rem);letter-spacing:-.05em}
+.fcard p{max-width:28em}
+@media (min-width:900px){
+  .formats.pin{height:340vh}
+  .formats.pin .sticky{position:sticky;top:68px;height:calc(100vh - 68px);overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+  .formats.pin .intro{padding-block:0 36px}
+  .formats.pin .track{clip-path:inset(-24px -100vw -24px 0);display:flex;gap:20px;padding-bottom:0;will-change:transform}
+  .formats.pin .fcard{flex:0 0 min(460px,40vw);min-height:min(56vh,480px)}
+  .formats:not(.pin) .track{grid-template-columns:repeat(2,1fr)}
+}
+.fprog{display:none;gap:8px;margin-top:28px}
+.formats.pin .fprog{display:flex}
+.fprog i{height:3px;flex:1;background:rgba(17,17,17,.12);border-radius:2px;overflow:hidden;position:relative}
+.fprog i::after{content:"";position:absolute;inset:0;background:var(--ink);transform:scaleX(var(--f,0));transform-origin:0 50%}
+
+/* company */
+.marquee{overflow:hidden;border-block:1.5px solid var(--hair);padding-block:22px;display:grid;gap:14px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.mrow{display:flex;gap:12px;width:max-content;animation:marq 60s linear infinite}
+.mrow.rev{animation-direction:reverse;animation-duration:70s}
+.marquee:hover .mrow{animation-play-state:paused}
+.mrow span{border:1.5px solid var(--hair);border-radius:999px;padding:.55em 1.2em;white-space:nowrap;font-size:.95rem;letter-spacing:-.01em}
+.mrow span:nth-child(3n){background:var(--oat);border-color:var(--oat)}
+@keyframes marq{to{transform:translateX(-50%)}}
+.big35{font-size:clamp(4rem,2rem + 8vw,9rem);letter-spacing:-.075em;line-height:.9;font-weight:450}
+
+/* receive */
+.receive{display:grid;gap:clamp(32px,5vw,64px);grid-template-columns:1fr}
+@media (min-width:900px){ .receive{grid-template-columns:.8fr 1.2fr} }
+.receive .photo{min-height:420px}
+.lists{display:grid;gap:36px;grid-template-columns:1fr}
+@media (min-width:640px){ .lists{grid-template-columns:1fr 1fr} }
+.lists ol{list-style:none;padding:0;margin:14px 0 0;display:grid;counter-reset:r}
+.lists li{display:grid;grid-template-columns:2.2em 1fr;gap:10px;padding-block:14px;border-top:1.5px solid var(--hair);counter-increment:r}
+.lists li::before{content:counter(r,lower-roman) ".";font-style:italic;color:var(--ink-2)}
+
+/* packages */
+.pkgs{display:grid;gap:18px;grid-template-columns:1fr;margin-top:clamp(40px,6vw,72px)}
+@media (min-width:900px){ .pkgs{grid-template-columns:1fr 1fr} }
+.pkg{border:1.5px solid var(--hair);border-radius:26px;padding:clamp(26px,3.5vw,44px);display:grid;gap:22px;align-content:start;position:relative;transition:transform .4s var(--ease)}
+.pkg:hover{transform:translateY(-4px)}
+.pkg.rec{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.pkg.rec .eyebrow,.pkg.rec .muted{color:rgba(240,240,240,.7)}
+.pkg .price{display:flex;align-items:baseline;gap:10px}
+.pkg .price b{font-size:clamp(3rem,2rem + 3vw,4.6rem);font-weight:450;letter-spacing:-.065em;line-height:1}
+.pkg ul{list-style:none;padding:0;margin:0;display:grid}
+.pkg li{padding-block:12px;border-top:1.5px solid var(--hair);display:flex;gap:12px}
+.pkg.rec li{border-top-color:rgba(240,240,240,.2)}
+.pkg li::before{content:"";flex:0 0 18px;height:18px;margin-top:3px;border-radius:50%;background:var(--oat);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.pkg.rec li::before{box-shadow:none}
+.pkg li.no{color:var(--ink-2)}
+.pkg li.no::before{background:none;box-shadow:inset 0 0 0 1.5px var(--hair)}
+.badge{position:absolute;top:22px;right:22px;background:var(--oat);color:var(--ink);border-radius:999px;padding:.35em .9em;font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+
+/* planner */
+.planner{margin-top:18px;border:1.5px solid var(--ink);border-radius:26px;padding:clamp(24px,3.5vw,44px);display:grid;gap:28px;grid-template-columns:1fr}
+@media (min-width:900px){ .planner{grid-template-columns:.9fr 1.1fr;align-items:center} }
+.seg{justify-self:start;display:inline-flex;border:1.5px solid var(--ink);border-radius:999px;padding:4px;gap:4px;margin-top:18px}
+.seg button{border:0;background:none;font-family:inherit;font-size:.95rem;font-weight:500;padding:.6em 1.2em;border-radius:999px;cursor:pointer;color:var(--ink);transition:background .3s,color .3s}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.compare{display:grid;gap:14px}
+.crow{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:baseline;padding-block:12px;border-top:1.5px solid var(--hair)}
+.crow .amt{font-size:clamp(1.6rem,1.2rem + 1.4vw,2.4rem);letter-spacing:-.05em;font-variant-numeric:tabular-nums}
+.crow.best .amt{background:var(--oat);padding:0 .3em;border-radius:10px}
+.crow .inc{color:var(--ink-2);font-size:.9rem}
+.verdict{font-size:1.15rem;letter-spacing:-.02em;line-height:1.4;min-height:3em}
+.save{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.save b{font-size:clamp(3.4rem,2rem + 4vw,5.6rem);font-weight:450;letter-spacing:-.07em;line-height:1}
+
+/* join */
+.steps{display:grid;gap:18px;grid-template-columns:1fr;margin-top:clamp(40px,6vw,72px);counter-reset:s}
+@media (min-width:900px){ .steps{grid-template-columns:repeat(3,1fr)} }
+.step{border-top:1.5px solid var(--ink);padding-top:22px;display:grid;gap:12px;align-content:start}
+.step .num{font-size:clamp(2.2rem,1.6rem + 1.6vw,3.2rem);letter-spacing:-.06em;line-height:1}
+.step p{color:var(--ink-2)}
+.fine{font-size:.8rem;color:var(--ink-2);margin-top:40px;max-width:60em}
+
+/* contact */
+.contact{padding-block:clamp(88px,12vw,160px) 48px}
+.contact h2{font-size:clamp(3rem,1.6rem + 6vw,7.4rem);letter-spacing:-.07em;line-height:.92}
+.contact-grid{display:grid;grid-template-columns:1fr;gap:32px;align-items:end}
+@media (min-width:900px){ .contact-grid{grid-template-columns:1.2fr .8fr} }
+.contact .illo{max-width:440px;justify-self:center;width:100%}
+.channels{display:grid;gap:12px;grid-template-columns:1fr;margin-top:48px}
+@media (min-width:760px){ .channels{grid-template-columns:repeat(3,1fr)} }
+.ch{border:1.5px solid var(--hair);border-radius:20px;padding:20px 22px;display:grid;gap:8px}
+.ch .v{font-size:1.15rem;letter-spacing:-.02em;word-break:break-word;user-select:all}
+.ch .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.ch .pill{font-size:.78rem;min-height:2.1em;padding:.25em 1em}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-top:72px;padding-top:24px;border-top:1.5px solid var(--hair);font-size:.8rem;color:var(--ink-2)}
+.foot .logos{display:flex;align-items:center;gap:18px}
+.foot .logos img{height:24px;width:auto}
+
+/* ============ illustrations ============ */
+.illo{display:block;overflow:visible}
+.illo .s{fill:var(--oat);stroke:var(--ink);stroke-width:var(--line);stroke-linecap:round;stroke-linejoin:round}
+.illo .k{fill:var(--ink);stroke:var(--ink);stroke-width:var(--line);stroke-linecap:round;stroke-linejoin:round}
+.illo .l{fill:none;stroke:var(--ink);stroke-width:var(--line);stroke-linecap:round;stroke-linejoin:round}
+.illo .t{stroke-width:4.5}
+.illo .f{fill:var(--oat);stroke:none}
+.illo .p{fill:none;stroke:var(--paper);stroke-width:4.5;stroke-linecap:round;stroke-linejoin:round}
+.illo .dot{fill:var(--ink);stroke:none}
+
+/* ============ motion (only when allowed) ============ */
+.motion [data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:calc(var(--i,0) * 90ms)}
+.motion [data-reveal].in{opacity:1;transform:none}
+.motion .line > span{transform:translateY(105%);transition:transform 1.1s var(--ease);transition-delay:calc(var(--i,0) * 110ms + var(--base,0ms))}
+.motion .in .line > span,.motion .line.in > span{transform:none}
+.motion .illo :is(.s,.k,.l,.p){stroke-dasharray:1 1;stroke-dashoffset:1;transition:stroke-dashoffset 1s cubic-bezier(.55,.1,.25,1);transition-delay:calc(var(--d,0) * 70ms)}
+.motion .illo :is(.s,.k){fill-opacity:0;transition:stroke-dashoffset 1s cubic-bezier(.55,.1,.25,1) calc(var(--d,0) * 70ms),fill-opacity .6s ease calc(var(--d,0) * 70ms + 650ms)}
+.motion .illo .f,.motion .illo .dot{opacity:0;transition:opacity .7s ease calc(var(--d,0) * 70ms + 300ms)}
+.motion .illo.drawn :is(.s,.k,.l,.p){stroke-dashoffset:0}
+.motion .illo.drawn :is(.s,.k){fill-opacity:1}
+.motion .illo.drawn :is(.f,.dot){opacity:1}
+.motion .strike path{stroke-dasharray:1 1;stroke-dashoffset:1;transition:stroke-dashoffset .7s cubic-bezier(.6,0,.3,1) .5s}
+.motion .strike.in path{stroke-dashoffset:0}
+.motion .strike.in + .after{opacity:1;transform:none}
+.motion .bar .t i{transform:scaleX(0)}
+.motion .bars.in .bar .t i{transform:scaleX(1)}
+.motion .bars.in .bar:nth-child(2) .t i{transition-delay:.08s}.motion .bars.in .bar:nth-child(3) .t i{transition-delay:.16s}.motion .bars.in .bar:nth-child(4) .t i{transition-delay:.24s}.motion .bars.in .bar:nth-child(5) .t i{transition-delay:.32s}.motion .bars.in .bar:nth-child(6) .t i{transition-delay:.4s}.motion .bars.in .bar:nth-child(7) .t i{transition-delay:.48s}
+.motion .chart .reg,.motion .chart .att{transform:scaleY(0)}
+.motion .chart .val,.motion .chart .att-v{opacity:0}
+.motion .chart .mult{opacity:0;transform:translateY(10px) scale(.8)}
+.motion .chart.in .reg{transform:scaleY(1)}
+.motion .chart.in .att{transform:scaleY(1);transition-delay:.35s}
+.motion .chart.in .val,.motion .chart.in .att-v{opacity:1;transition-delay:.9s}
+.motion .chart.in .mult{opacity:1;transform:none}
+.motion .chart.in .col:nth-child(2) :is(.reg,.att){transition-delay:.15s}.motion .chart.in .col:nth-child(2) .att{transition-delay:.5s}
+.motion .chart.in .col:nth-child(3) :is(.reg,.att){transition-delay:.3s}.motion .chart.in .col:nth-child(3) .att{transition-delay:.65s}
+.motion .chart.in .col:nth-child(4) :is(.reg,.att){transition-delay:.45s}.motion .chart.in .col:nth-child(4) .att{transition-delay:.8s}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .mrow{animation:none;flex-wrap:wrap;width:auto}
+  .scrollcue i::after{animation:none}
+}
+</style>
+
+<div class="progress" aria-hidden="true"><i></i></div>
+
+<nav class="rail" aria-label="Chapters">
+  <svg id="railSvg" viewBox="0 0 88 1000" aria-hidden="true">
+    <path class="track" id="railTrack" d="M44 0 C 22 70, 66 130, 44 200 S 22 330, 44 400 S 66 530, 44 600 S 22 730, 44 800 S 60 930, 44 1000"/>
+    <path class="run" id="railRun" d="M44 0 C 22 70, 66 130, 44 200 S 22 330, 44 400 S 66 530, 44 600 S 22 730, 44 800 S 60 930, 44 1000"/>
+  </svg>
+  <div class="stops" id="stops"></div>
+  <div class="stop-head" id="railHead" aria-hidden="true" style="position:absolute;width:12px;height:12px;border-radius:50%;background:var(--blue);transform:translate(-50%,-50%);box-shadow:0 0 0 6px color-mix(in srgb,var(--blue) 22%,transparent);left:44px;top:92px"></div>
+</nav>
+
+<div class="wrap">
+<header class="top" id="top">
+  <div class="container">
+    <a class="brand" href="#hero" aria-label="Masar, back to top">
+      <img src="assets/logo-masar.png" alt="Masar" width="210" height="80">
+      <span class="by">by GET ED × Eshra7ly</span>
+    </a>
+    <div class="nav">
+      <a class="pill" href="#record">The record</a>
+      <a class="pill" href="#formats">Formats</a>
+      <a class="pill" href="#packages">Packages</a>
+      <a class="btn" href="#contact">Join Masar <span class="arr">→</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hero" id="hero" data-chapter="" data-name="Start">
+  <div class="container">
+    <div class="pills" data-reveal>
+      <span class="pill">A proposal for universities</span>
+      <span class="pill">2026 / 27</span>
+    </div>
+    <div class="hero-grid">
+      <div>
+        <h1 aria-label="Masar">
+          <span class="line"><span>Masar</span></span>
+          <span class="line ar"><span lang="ar" dir="rtl">مسار</span></span>
+        </h1>
+        <p class="tag"><span class="line"><span>The path to university,</span></span><span class="line"><span>travelling the region.</span></span></p>
+        <p class="intro" data-reveal style="--i:4">Presented by GET ED, official and exclusive study abroad partner of Eshra7ly, the largest education platform in the Middle East.</p>
+        <div class="ctas" data-reveal style="--i:5">
+          <a class="btn" href="#packages">See partnership packages <span class="arr">→</span></a>
+          <a class="pill" href="#foreword">Follow the path</a>
+        </div>
+        <div class="scrollcue" data-reveal style="--i:6"><i></i>Scroll to travel the region</div>
+      </div>
+      <svg class="illo" data-draw viewBox="0 0 640 600" role="img" aria-label="A student and her father, seen from behind, at a board mapping a route between cities">
+        <g class="art">
+          <path class="f" d="M58 70 L596 56 L606 362 L64 372 Z"/>
+          <path class="l" d="M118 64 L590 56"/>
+          <path class="l" d="M598 72 C600 170 602 260 604 350"/>
+          <path class="l" d="M300 368 L562 362"/>
+          <path class="s t" d="M126 118 L194 110 L200 168 L132 176 Z"/>
+          <path class="l t" d="M144 136 L180 132 M146 152 L172 150"/>
+          <path class="s t" d="M214 96 L270 100 L266 150 L210 146 Z"/>
+          <path class="l t" d="M226 116 L254 118"/>
+          <path class="l" d="M122 300 C170 222 232 318 290 242 S400 150 468 190 S530 162 556 116"/>
+          <circle class="dot" cx="122" cy="300" r="12"/>
+          <circle class="dot" cx="290" cy="242" r="12"/>
+          <circle class="dot" cx="468" cy="190" r="12"/>
+          <circle class="l" cx="556" cy="112" r="15"/>
+          <!-- student -->
+          <path class="s" d="M92 604 C88 522 112 454 206 448 C302 454 330 522 328 604"/>
+          <path class="s" d="M160 504 C162 480 252 478 254 504 L260 604 L154 604 Z"/>
+          <path class="l t" d="M170 548 L244 546"/>
+          <path class="k" d="M150 382 C146 320 184 290 210 290 C240 290 272 320 268 382 C268 420 286 448 318 472 C270 490 150 490 100 472 C132 448 150 420 150 382 Z"/>
+          <!-- father -->
+          <path class="s" d="M512 474 C530 404 536 334 528 272 L572 266 C586 334 582 414 562 484 Z"/>
+          <path class="s" d="M318 604 C314 502 340 442 440 436 C540 442 566 502 562 604"/>
+          <path class="l t" d="M526 300 L574 294"/>
+          <path class="s" d="M520 276 C510 244 530 224 552 228 C576 232 586 254 576 278 C564 294 532 296 520 276 Z"/>
+          <path class="s" d="M532 236 L522 180 C520 166 538 162 541 176 L552 232"/>
+          <path class="s" d="M384 362 C380 302 408 264 438 262 C468 264 496 302 492 362 C494 402 512 428 548 448 C500 464 380 464 330 448 C366 428 382 402 384 362 Z"/>
+          <path class="l t" d="M438 266 C432 322 420 392 398 440"/>
+          <path class="l t" d="M442 266 C452 332 470 400 500 444"/>
+          <path class="l" style="stroke-width:10" d="M391 306 C420 320 460 320 487 306"/>
+          <path class="l" style="stroke-width:10" d="M389 324 C420 338 460 338 489 324"/>
+        </g>
+      </svg>
+    </div>
+    <div class="hero-foot" data-reveal style="--i:7">
+      <a class="pill" href="https://get-ed.co" target="_blank" rel="noopener">get-ed.co</a>
+      <span class="pill">admissions@get-ed.co</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOREWORD -->
+<section class="sec foreword" id="foreword" data-name="Foreword">
+  <div class="container">
+    <div class="head">
+      <span class="eyebrow" data-reveal>Foreword</span>
+      <p class="quote" id="forewordText">Every year, tens of thousands of students across Egypt and the Gulf sit down to make the most expensive decision of their lives so far. Most of them make it with an Eshra7ly screen open in front of them. This season, the region's largest education platform and one of its fastest growing study abroad consultancies are joining forces, so that when those students choose a university, yours is in the room.</p>
+      <div class="sign" data-reveal>
+        <img src="assets/logo-geted.png" alt="GET ED" width="360" height="120">
+        <span class="x">&amp;</span>
+        <img src="assets/logo-eshra7ly.png" alt="Eshra7ly" width="366" height="171">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- I ESHRA7LY -->
+<section class="sec" id="eshra7ly" data-chapter="I" data-name="Eshra7ly">
+  <div class="container">
+    <div class="split">
+      <div class="head">
+        <span class="eyebrow" data-reveal><b>Chapter I</b> Eshra7ly</span>
+        <h2><span class="line"><span>Where a region</span></span><span class="line"><span>comes to learn.</span></span></h2>
+        <p class="lede" data-reveal>Eshra7ly is the largest online education platform in the Middle East, serving students and families across Egypt and the Gulf. It stays with learners from their early school years all the way to university readiness, through structured academic programmes, exam preparation and one to one guidance.</p>
+        <p class="muted" data-reveal style="max-width:34em">Families know it for trusted educators, a professional approach and relationships that last for years. Its mission is simple: to close the gap between school and higher education, and to be there at every decision that matters.</p>
+      </div>
+      <svg class="illo" data-draw viewBox="0 0 520 520" role="img" aria-label="A student with glasses smiling over a laptop">
+        <g class="art">
+          <path class="s" d="M58 524 C56 424 110 362 260 358 C410 362 464 424 462 524"/>
+          <path class="l t" d="M200 364 C222 396 298 396 320 364"/>
+          <path class="l t" d="M238 380 L234 438 M282 380 L286 438"/>
+          <path class="s" d="M196 232 C194 172 226 138 262 138 C300 138 330 172 328 234 C328 292 300 332 262 332 C224 332 198 294 196 232 Z"/>
+          <path class="l t" d="M199 236 C180 230 178 264 199 264"/>
+          <path class="l t" d="M325 236 C344 230 346 264 325 264"/>
+          <path class="k" d="M190 216 C184 152 230 120 270 124 C318 126 342 164 332 216 C318 190 292 178 264 188 C240 178 212 192 190 216 Z"/>
+          <circle class="l t" cx="236" cy="244" r="23"/>
+          <circle class="l t" cx="292" cy="244" r="23"/>
+          <path class="l t" d="M259 242 L269 242"/>
+          <circle class="dot" cx="236" cy="246" r="4.5"/>
+          <circle class="dot" cx="292" cy="246" r="4.5"/>
+          <path class="l t" d="M266 256 L259 282 L271 284"/>
+          <path class="l t" d="M242 302 C254 314 276 314 290 300"/>
+          <path class="k" d="M120 524 L130 404 L390 404 L400 524 Z"/>
+          <path class="s" d="M98 454 C90 430 112 414 134 420 L154 434 C164 450 152 474 130 478 C114 480 102 470 98 454 Z"/>
+          <path class="l t" d="M112 440 L140 446 M108 458 L136 462"/>
+          <path class="s" d="M422 454 C430 430 408 414 386 420 L366 434 C356 450 368 474 390 478 C406 480 418 470 422 454 Z"/>
+          <path class="l t" d="M408 440 L380 446 M412 458 L384 462"/>
+          <path class="l t" d="M372 150 L394 128 M388 180 L418 174 M356 124 L362 96"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="split" style="margin-top:clamp(72px,10vw,140px);align-items:start">
+      <div class="head">
+        <span class="eyebrow" data-reveal>Eshra7ly in numbers</span>
+        <h2 style="font-size:clamp(2.2rem,1.2rem + 3.4vw,4.4rem)"><span class="line"><span>An audience</span></span><span class="line"><span>no fair can buy.</span></span></h2>
+        <p class="muted" data-reveal style="max-width:30em">Eshra7ly reaches decision stage students in six countries. Two in every three of them live in the Gulf, the region universities work hardest to reach.</p>
+        <div class="stats" data-reveal style="margin-top:18px">
+          <div class="stat"><span class="n" data-count="27000">27,000</span><span class="k">Students on the platform</span></div>
+          <div class="stat"><span class="n" data-count="467" data-suffix="K">467K</span><span class="k">Views in four months</span></div>
+        </div>
+      </div>
+      <div class="head">
+        <span class="eyebrow" data-reveal>Where Eshra7ly students are</span>
+        <div class="gulf" data-reveal><b data-count="65.8" data-dec="1" data-suffix="%">65.8%</b><span class="muted">in the Gulf, combined</span></div>
+        <div class="bars" id="bars">
+          <div class="bar egy"><span>Egypt</span><span class="t"><i style="--v:100"></i></span><span class="v">33%</span></div>
+          <div class="bar"><span>Saudi Arabia</span><span class="t"><i style="--v:80.3"></i></span><span class="v">26.5%</span></div>
+          <div class="bar"><span>UAE</span><span class="t"><i style="--v:50"></i></span><span class="v">16.5%</span></div>
+          <div class="bar"><span>Kuwait</span><span class="t"><i style="--v:46.4"></i></span><span class="v">15.3%</span></div>
+          <div class="bar"><span>Qatar</span><span class="t"><i style="--v:16.7"></i></span><span class="v">5.5%</span></div>
+          <div class="bar"><span>Oman</span><span class="t"><i style="--v:6.1"></i></span><span class="v">2%</span></div>
+          <div class="bar oth"><span>Other</span><span class="t"><i style="--v:3.3"></i></span><span class="v">1.1%</span></div>
+        </div>
+        <div class="legend"><span><i></i>Gulf</span><span><i class="o"></i>Egypt and other</span></div>
+        <p class="source">Source: Eshra7ly platform data; views Nov 2025 to Feb 2026.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- II GET ED -->
+<section class="sec" id="geted" data-chapter="II" data-name="GET ED" style="padding-top:0">
+  <div class="container">
+    <div class="split flip">
+      <div class="head">
+        <span class="eyebrow" data-reveal><b>Chapter II</b> GET ED</span>
+        <h2><span class="line"><span>The people who</span></span><span class="line"><span>get them there.</span></span></h2>
+        <p class="lede" data-reveal>GET ED is an international education consultancy built around one of the biggest decisions a young person will ever make: studying abroad. From a first consultation to the day a student lands, GET ED handles course matching, applications, offers, visas and pre-departure.</p>
+        <p class="muted" data-reveal style="max-width:34em">GET ED are not free agents. They are official representatives of leading universities and pathway providers worldwide, and their guidance is free to every student, with no hidden fees, no surprise charges and no last minute costs. Ever.</p>
+        <div class="stats" data-reveal style="margin-top:22px;grid-template-columns:repeat(2,minmax(0,1fr))">
+          <div class="stat"><span class="n" data-count="1000" data-suffix="+">1,000+</span><span class="k">Students placed abroad</span></div>
+          <div class="stat"><span class="n" data-count="750" data-suffix="+">750+</span><span class="k">Partner universities</span></div>
+          <div class="stat"><span class="n" data-count="20" data-suffix="+">20+</span><span class="k">Destination countries</span></div>
+          <div class="stat"><span class="n" data-count="0" data-from="100">0</span><span class="k">Cost to the student</span></div>
+        </div>
+      </div>
+      <svg class="illo" data-draw viewBox="0 0 480 480" role="img" aria-label="A hand holding a passport and a boarding pass" style="max-width:460px;justify-self:center;width:100%">
+        <g class="art">
+          <path class="s" d="M104 162 L246 66 L386 250 L244 346 Z"/>
+          <path class="l t" d="M300 110 L330 150 M318 96 L322 102 M338 124 L342 130"/>
+          <path class="l t" d="M150 190 L230 136 M168 214 L214 184"/>
+          <path class="k" d="M148 112 L298 86 L338 302 L188 328 Z"/>
+          <circle class="p" cx="244" cy="190" r="30"/>
+          <path class="p" d="M214 190 L274 190 M244 160 C230 176 230 204 244 220 C258 204 258 176 244 160"/>
+          <path class="p" d="M206 262 L290 248"/>
+          <path class="k" d="M296 484 L352 336 L484 382 L484 484 Z"/>
+          <path class="s" d="M336 364 L352 322 L480 366 L466 408 Z"/>
+          <path class="s" d="M250 332 C258 292 300 272 330 282 L372 300 C402 316 406 362 382 386 L332 422 C300 444 262 424 256 392 Z"/>
+          <path class="s" d="M266 320 C246 300 242 272 258 262 C276 252 292 272 300 292 C304 306 296 320 282 326 Z"/>
+          <path class="l t" d="M372 306 C392 312 404 328 396 346"/>
+          <path class="l t" d="M388 350 C402 358 404 376 392 388"/>
+          <path class="l t" d="M42 70 L66 88 M30 110 L60 112 M64 40 L80 64"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- III PARTNERSHIP -->
+<section class="sec" id="partnership" data-chapter="III" data-name="The partnership" style="padding-top:0">
+  <div class="container">
+    <div class="head">
+      <span class="eyebrow" data-reveal><b>Chapter III</b> The partnership</span>
+      <h2 style="max-width:14em"><span class="line"><span>Every Eshra7ly student who looks abroad</span></span><span class="line"><span>will now be guided by one team.</span></span></h2>
+    </div>
+    <div class="equation">
+      <div class="eq" data-reveal style="--i:0"><span class="eyebrow">Eshra7ly brings</span><img src="assets/logo-eshra7ly.png" alt="Eshra7ly" width="366" height="171"><p>The audience. The region's largest, most trusted student community.</p></div>
+      <div class="op" data-reveal style="--i:1" aria-hidden="true">+</div>
+      <div class="eq" data-reveal style="--i:2"><span class="eyebrow">GET ED brings</span><img src="assets/logo-geted.png" alt="GET ED" width="360" height="120"><p>The pathway. Counselling, applications and visas, end to end.</p></div>
+      <div class="op" data-reveal style="--i:3" aria-hidden="true">=</div>
+      <div class="eq together" data-reveal style="--i:4"><span class="eyebrow">Together</span><p style="font-size:1.5rem">GET ED is the official and exclusive study abroad agency of Eshra7ly.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- IV MASAR -->
+<section class="sec" id="masar" data-chapter="IV" data-name="Masar" style="padding-top:0">
+  <div class="container">
+    <div class="masar-open" data-reveal id="masarOpen">
+      <img src="assets/dubai-hall.jpg" alt="A packed Masar seminar hall in Dubai" loading="lazy">
+      <span class="cap">Masar Dubai, 2025</span>
+      <div class="inner">
+        <span class="eyebrow" style="color:var(--oat)"><b style="color:var(--paper)">Chapter IV</b> Masar</span>
+        <h2>Masar <span class="ar" lang="ar" dir="rtl">مسار</span></h2>
+        <p class="sub">Your gate to university life. <span style="opacity:.6">Arabic for “the path”.</span></p>
+      </div>
+    </div>
+
+    <div class="split" style="margin-top:clamp(72px,10vw,140px);align-items:start">
+      <div class="head">
+        <span class="eyebrow" data-reveal>What Masar is</span>
+        <h2><span class="line"><span>Not <span class="strike" id="strike">a fair.<svg viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M2 7 C 30 3, 60 8, 98 3"/></svg></span></span></span><span class="line"><span>A guided decision.</span></span></h2>
+        <p class="lede" data-reveal>Masar is the university engagement platform created by Eshra7ly for the one moment that shapes everything after it: the moment a student decides.</p>
+        <p class="muted" data-reveal style="max-width:34em">Instead of crowded halls and rushed conversations, Masar walks students and their parents through their options, lets them compare countries, universities and majors side by side, and sends them home with a clear roadmap. No pressure, no hurried choices. Now, with GET ED as its study abroad partner, Masar becomes a roadshow that travels to students across every partner country, all year long.</p>
+      </div>
+      <div class="head">
+        <span class="eyebrow" data-reveal>What Masar sets out to do</span>
+        <ol class="aims" data-reveal>
+          <li><span>Help students make <b>informed</b> university and major choices.</span></li>
+          <li><span>Create <b>meaningful conversations</b> between universities and students.</span></li>
+          <li><span>Bring <b>parents</b> in as the key decision makers they are.</span></li>
+          <li><span>Bridge the gap between <b>school systems</b> and university expectations.</span></li>
+          <li><span>Give universities access to <b>high intent, decision ready</b> students.</span></li>
+          <li><span>Create value <b>long after the event</b> through content, data and follow up.</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- V RECORD -->
+<section class="sec" id="record" data-chapter="V" data-name="The record" style="padding-top:0">
+  <div class="container">
+    <div class="record-top">
+      <div class="head">
+        <span class="eyebrow" data-reveal><b>Chapter V</b> The record</span>
+        <h2><span class="line"><span>Four editions.</span></span><span class="line"><span>Three cities.</span></span><span class="line"><span>One direction.</span></span></h2>
+      </div>
+      <div class="head">
+        <p class="lede" data-reveal>Masar has already run in Cairo, Dubai and Riyadh, and every edition has been bigger than the last. Riyadh drew almost three times the registrations of the first Cairo edition, with close to six in ten registrants walking through the door.</p>
+        <div class="stats" data-reveal>
+          <div class="stat"><span class="n" data-count="3333">3,333</span><span class="k">Registrations</span></div>
+          <div class="stat"><span class="n" data-count="1920">1,920</span><span class="k">Students &amp; parents attended</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="chart" id="chart" role="img" aria-label="Registrations and attendance per edition: Cairo I 500 registered, 300 attended; Cairo II 600 and 350; Dubai 800 and 470; Riyadh 1,433 and 800.">
+      <div class="col" style="--r:34.9;--a:300;--r2:500"><span class="reg"></span><span class="att"><span class="att-v">300</span></span><span class="val">500</span></div>
+      <div class="col" style="--r:41.9;--a:350;--r2:600"><span class="reg"></span><span class="att"><span class="att-v">350</span></span><span class="val">600</span></div>
+      <div class="col" style="--r:55.8;--a:470;--r2:800"><span class="reg"></span><span class="att"><span class="att-v">470</span></span><span class="val">800</span></div>
+      <div class="col" style="--r:100;--a:800;--r2:1433"><span class="reg"></span><span class="att"><span class="att-v">800</span></span><span class="val">1,433</span><span class="mult">Riyadh, 2.9×</span></div>
+    </div>
+    <div class="xlabels" aria-hidden="true">
+      <span>Cairo I<small>60% attended</small></span>
+      <span>Cairo II<small>58% attended</small></span>
+      <span>Dubai<small>59% attended</small></span>
+      <span>Riyadh<small>56% attended</small></span>
+    </div>
+    <div class="chart-legend"><span><i class="o"></i>Registered</span><span><i></i>Attended</span></div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="quote-band" aria-label="Masar Riyadh, 2026">
+  <div class="container">
+    <div class="grid">
+      <figure class="photo main" data-reveal style="margin:0">
+        <img src="assets/riyadh-audience.jpg" alt="Students and parents in the audience at Masar Riyadh" loading="lazy">
+        <div class="over">
+          <blockquote>“Decision ready attendees, not casual visitors.”</blockquote>
+          <p style="margin-top:14px;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;opacity:.75">Masar Riyadh, 2026</p>
+        </div>
+      </figure>
+      <div class="stack">
+        <figure class="photo" data-reveal style="margin:0;--i:1"><img src="assets/riyadh-floor.jpg" alt="Students and parents moving between booths at Masar Riyadh" loading="lazy"></figure>
+        <figure class="photo" data-reveal style="margin:0;--i:2"><img src="assets/riyadh-booth.jpg" alt="A student and parent in conversation at a university booth" loading="lazy"></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VI WHY -->
+<section class="sec" id="why" data-chapter="VI" data-name="Why universities join">
+  <div class="container">
+    <div class="split" style="align-items:start">
+      <div class="head">
+        <span class="eyebrow" data-reveal><b>Chapter VI</b> Why universities join</span>
+        <h2><span class="line"><span>The right room,</span></span><span class="line"><span>at the right moment.</span></span></h2>
+      </div>
+      <div class="head">
+        <span class="eyebrow" data-reveal>Who you will meet</span>
+        <ol class="meet" data-reveal>
+          <li><span>i.</span><p><b>High school students</b> actively preparing for university across IGCSE, American and other international systems.</p></li>
+          <li><span>ii.</span><p><b>Parents</b>, who hold the academic and financial decision.</p></li>
+          <li><span>iii.</span><p><b>Active comparers</b>, weighing universities, countries, majors and admission routes.</p></li>
+        </ol>
+      </div>
+    </div>
+    <div class="diffs">
+      <div class="diff" data-reveal style="--i:0"><h3>Decision stage</h3><p>Attendees are choosing, not browsing.</p></div>
+      <div class="diff" data-reveal style="--i:1"><h3>Guided journey</h3><p>A structured flow across booths, panels and counselling zones.</p></div>
+      <div class="diff" data-reveal style="--i:2"><h3>Parents included</h3><p>Better conversations and faster decisions.</p></div>
+      <div class="diff" data-reveal style="--i:3"><h3>Academic credibility</h3><p>Experienced IGCSE and American system teachers on the floor.</p></div>
+      <div class="diff" data-reveal style="--i:0"><h3>Curated</h3><p>Meaningful engagement over footfall noise.</p></div>
+      <div class="diff" data-reveal style="--i:1"><h3>Regional reach</h3><p>Students from across the Gulf and beyond.</p></div>
+      <div class="diff" data-reveal style="--i:2"><h3>Follow through</h3><p>GET ED counsellors carry every lead to enrolment.</p></div>
+      <div class="diff" data-reveal style="--i:3"><h3>Year round</h3><p>Visibility across the Eshra7ly ecosystem long after fair day.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMATS -->
+<section class="formats" id="formats" data-name="Four formats">
+  <div class="sticky">
+    <div class="container">
+      <div class="intro">
+        <div class="head">
+          <span class="eyebrow" data-reveal>A year of Masar</span>
+          <h2><span class="line"><span>Four formats.</span></span><span class="line"><span>One calendar.</span></span></h2>
+        </div>
+        <p class="lede" data-reveal>Masar no longer happens once a year. It follows students from first curiosity to final application, in person and online.</p>
+      </div>
+      <div class="track" id="track">
+        <article class="fcard">
+          <span class="no">01 / 04 · In person</span>
+          <svg class="illo" data-draw viewBox="0 0 220 170" aria-hidden="true" style="--line:5">
+            <g class="art">
+              <circle class="s" cx="78" cy="78" r="20"/><path class="k" d="M58 74 C58 50 98 50 98 74 C88 64 68 64 58 74 Z"/>
+              <circle class="s" cx="146" cy="80" r="20"/><path class="k" d="M124 80 C122 52 170 50 168 80 C168 104 150 116 146 118 L146 100 C160 96 164 84 160 72 C150 66 136 70 124 80 Z"/>
+              <path class="k" d="M60 20 L160 18 L162 44 L58 46 Z"/>
+              <path class="s" d="M20 110 L200 108 L192 158 L28 160 Z"/>
+              <path class="l t" d="M70 134 L150 132"/>
+            </g>
+          </svg>
+          <h3>Fairs</h3>
+          <p>The roadshow itself. In person university fairs in partner countries across the region, where you meet students and parents face to face.</p>
+        </article>
+        <article class="fcard">
+          <span class="no">02 / 04 · Online</span>
+          <svg class="illo" data-draw viewBox="0 0 220 170" aria-hidden="true" style="--line:5">
+            <g class="art">
+              <path class="k" d="M78 8 L142 8 C148 8 152 12 152 18 L152 152 C152 158 148 162 142 162 L78 162 C72 162 68 158 68 152 L68 18 C68 12 72 8 78 8 Z"/>
+              <circle class="p" cx="110" cy="66" r="16"/>
+              <path class="p" d="M82 116 C84 94 136 94 138 116"/>
+              <path class="p" d="M98 144 L122 144"/>
+              <path class="l t" d="M170 40 C184 52 184 76 170 88 M184 28 C204 48 204 80 184 100"/>
+              <path class="l t" d="M50 40 C36 52 36 76 50 88 M36 28 C16 48 16 80 36 100"/>
+            </g>
+          </svg>
+          <h3>Webinars</h3>
+          <p>Live online sessions broadcast to the Eshra7ly community, putting your university in front of students wherever they are.</p>
+        </article>
+        <article class="fcard">
+          <span class="no">03 / 04 · Expert panels</span>
+          <svg class="illo" data-draw viewBox="0 0 220 170" aria-hidden="true" style="--line:5">
+            <g class="art">
+              <path class="s" d="M30 30 L190 26 L192 70 L32 74 Z"/>
+              <path class="l t" d="M56 50 L120 48"/>
+              <circle class="s" cx="50" cy="126" r="22"/><path class="k" d="M28 122 C26 96 74 94 72 122 C62 110 38 110 28 122 Z"/>
+              <path class="k" d="M88 134 C84 100 136 100 132 134 C132 150 140 160 150 166 L70 166 C80 160 88 150 88 134 Z"/>
+              <circle class="s" cx="172" cy="126" r="22"/><path class="s" d="M150 126 C148 96 196 96 194 126"/>
+              <path class="l t" d="M26 166 C30 152 70 152 74 166 M148 166 C152 152 192 152 196 166"/>
+            </g>
+          </svg>
+          <h3>Seminars</h3>
+          <p>Expert panels in the Masar tradition, such as <i>From School to University</i> and <i>British System vs American Diploma</i>. Calendar to be announced.</p>
+        </article>
+        <article class="fcard">
+          <span class="no">04 / 04 · Local visits</span>
+          <svg class="illo" data-draw viewBox="0 0 220 170" aria-hidden="true" style="--line:5">
+            <g class="art">
+              <path class="l t" d="M16 150 C50 120 70 160 110 136 S170 110 204 128"/>
+              <circle class="dot" cx="16" cy="150" r="7"/><circle class="dot" cx="204" cy="128" r="7"/>
+              <path class="k" d="M110 10 C82 10 68 32 76 58 L110 116 L144 58 C152 32 138 10 110 10 Z"/>
+              <circle class="p" cx="110" cy="44" r="13"/>
+            </g>
+          </svg>
+          <h3>Outreach</h3>
+          <p>GET ED visits interested students in their own regions, so no qualified applicant is lost because they could not reach a fair.</p>
+        </article>
+      </div>
+      <div class="fprog" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPANY -->
+<section class="sec" id="company" data-name="In good company" style="padding-top:clamp(40px,6vw,80px)">
+  <div class="container">
+    <div class="split" style="align-items:end">
+      <div class="head">
+        <span class="eyebrow" data-reveal>In good company</span>
+        <h2><span class="line"><span>In good company.</span></span></h2>
+      </div>
+      <div class="head" data-reveal>
+        <span class="big35" data-count="35" data-suffix="+">35+</span>
+        <p class="muted">More than thirty five universities, pathway providers and education groups have already taken part in Masar.</p>
+      </div>
+    </div>
+  </div>
+  <div class="marquee" style="margin-top:clamp(40px,6vw,72px)" aria-label="Previous Masar partners">
+    <div class="mrow">
+      <span>Ain Shams University</span><span>Asia Pacific University</span><span>Badya University</span><span>The British University in Egypt</span><span>Coventry University</span><span>European Universities in Egypt</span><span>Future University in Egypt</span><span>Galala University</span><span>German International University</span><span>German University in Cairo</span><span>Global Study UK</span><span>Innovation University</span><span>INTO University Partnerships</span><span>The Knowledge Hub Universities</span>
+      <span aria-hidden="true">Ain Shams University</span><span aria-hidden="true">Asia Pacific University</span><span aria-hidden="true">Badya University</span><span aria-hidden="true">The British University in Egypt</span><span aria-hidden="true">Coventry University</span><span aria-hidden="true">European Universities in Egypt</span><span aria-hidden="true">Future University in Egypt</span><span aria-hidden="true">Galala University</span><span aria-hidden="true">German International University</span><span aria-hidden="true">German University in Cairo</span><span aria-hidden="true">Global Study UK</span><span aria-hidden="true">Innovation University</span><span aria-hidden="true">INTO University Partnerships</span><span aria-hidden="true">The Knowledge Hub Universities</span>
+    </div>
+    <div class="mrow rev">
+      <span>Memphis University</span><span>Misr International University</span><span>Nahda University</span><span>NOVA University Lisbon</span><span>Shorelight Education</span><span>Study Group</span><span>SU Tech Elsewedy University</span><span>Université Française d'Égypte</span><span>University of Hertfordshire</span><span>University of Prince Edward Island</span><span>Universities of Canada in Egypt</span><span>AHZ, UK University Representative</span><span>Study Abroad Hub</span><span>and more</span>
+      <span aria-hidden="true">Memphis University</span><span aria-hidden="true">Misr International University</span><span aria-hidden="true">Nahda University</span><span aria-hidden="true">NOVA University Lisbon</span><span aria-hidden="true">Shorelight Education</span><span aria-hidden="true">Study Group</span><span aria-hidden="true">SU Tech Elsewedy University</span><span aria-hidden="true">Université Française d'Égypte</span><span aria-hidden="true">University of Hertfordshire</span><span aria-hidden="true">University of Prince Edward Island</span><span aria-hidden="true">Universities of Canada in Egypt</span><span aria-hidden="true">AHZ, UK University Representative</span><span aria-hidden="true">Study Abroad Hub</span><span aria-hidden="true">and more</span>
+    </div>
+  </div>
+</section>
+
+<!-- VII RECEIVE + PACKAGES -->
+<section class="sec" id="receive" data-chapter="VII" data-name="Packages" style="padding-top:0">
+  <div class="container">
+    <div class="receive">
+      <figure class="photo" data-reveal style="margin:0">
+        <img src="assets/booth-rep.jpg" alt="A university representative smiling at her Masar booth" loading="lazy">
+        <figcaption>At every fair</figcaption>
+      </figure>
+      <div class="head" style="align-content:center">
+        <span class="eyebrow" data-reveal><b>Chapter VII</b> At every fair</span>
+        <h2><span class="line"><span>What your university</span></span><span class="line"><span>receives.</span></span></h2>
+        <div class="lists" data-reveal>
+          <div><span class="eyebrow">On the floor</span>
+            <ol><li>A 2.5 × 2.5m university booth</li><li>Event printables, banners and setup</li><li>Logo or video on the hall's digital screens</li><li>Logo on giveaways, flyers and banners</li><li>The full attendee database</li></ol></div>
+          <div><span class="eyebrow">Around it</span>
+            <ol><li>Paid digital campaign for every edition</li><li>Social content and influencer collaborations</li><li>Professional photo and video coverage</li><li>Post event content distribution</li><li>GET ED follow up on every lead</li></ol></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="packages" data-name="Two ways in" style="padding-top:0">
+  <div class="container">
+    <div class="head">
+      <span class="eyebrow" data-reveal>Partnership packages</span>
+      <h2><span class="line"><span>Two ways in.</span></span></h2>
+    </div>
+    <div class="pkgs">
+      <article class="pkg" data-reveal>
+        <span class="eyebrow">Package one</span>
+        <h3>The Fair Pass</h3>
+        <div class="price"><b>$2,500</b><span class="muted">USD per university</span></div>
+        <ul>
+          <li>One Masar fair of your choice</li>
+          <li>Full fair inclusions: booth, branding, campaign and attendee database</li>
+          <li>GET ED follow up on every lead</li>
+          <li class="no">Accommodation not included</li>
+        </ul>
+      </article>
+      <article class="pkg rec" data-reveal style="--i:1">
+        <span class="badge">Recommended</span>
+        <span class="eyebrow">Package two</span>
+        <h3>The Masar Partner</h3>
+        <div class="price"><b>$6,000</b><span class="muted">USD per university</span></div>
+        <ul>
+          <li>Three Masar fairs across the roadshow</li>
+          <li>Two webinars to the Eshra7ly community</li>
+          <li>Access to Masar seminars, to be announced</li>
+          <li>Full fair inclusions and GET ED follow up at every stop</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="planner" data-reveal id="planner">
+      <div class="head">
+        <span class="eyebrow">Do the maths</span>
+        <h3 style="font-size:clamp(1.8rem,1.2rem + 1.8vw,3rem);letter-spacing:-.05em">How many fairs will you attend this year?</h3>
+        <div class="seg" role="group" aria-label="Number of fairs">
+          <button type="button" id="fairs1" data-fairs="1" aria-pressed="false">1 fair</button>
+          <button type="button" id="fairs2" data-fairs="2" aria-pressed="false">2 fairs</button>
+          <button type="button" id="fairs3" data-fairs="3" aria-pressed="true">3 fairs</button>
+        </div>
+      </div>
+      <div class="compare">
+        <div class="crow" id="rowPass"><div><b>Fair Pass, one at a time</b><div class="inc" id="passInc">3 × $2,500</div></div><span class="amt" id="passAmt">$7,500</span></div>
+        <div class="crow best" id="rowPartner"><div><b>The Masar Partner</b><div class="inc">3 fairs, 2 webinars, seminar access</div></div><span class="amt">$6,000</span></div>
+        <div class="save" id="saveBox"><b id="saveAmt">20%</b><span class="muted" id="saveLabel">saved on fairs alone, before a single webinar.</span></div>
+        <p class="verdict" id="verdict" aria-live="polite">Three fairs bought one at a time cost $7,500. As a Masar Partner they cost $6,000, and the webinars and seminars come with them.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIII JOIN -->
+<section class="sec" id="join" data-chapter="VIII" data-name="How to join" style="padding-top:0">
+  <div class="container">
+    <div class="head">
+      <span class="eyebrow" data-reveal><b>Chapter VIII</b> How to join</span>
+      <h2><span class="line"><span>Take your place on the path.</span></span></h2>
+    </div>
+    <div class="steps">
+      <div class="step" data-reveal style="--i:0"><span class="num">One</span><h3>Choose your package</h3><p>The Fair Pass or the Masar Partner. Fair Pass holders pick their stop from the roadshow calendar.</p></div>
+      <div class="step" data-reveal style="--i:1"><span class="num">Two</span><h3>Confirm your place</h3><p>Sign the participation agreement and settle the fee to secure your booth. Places are limited and allocated in order of confirmation.</p></div>
+      <div class="step" data-reveal style="--i:2"><span class="num">Three</span><h3>Meet your students</h3><p>Our team shares logistics, campaign assets and a student brief ahead of your first Masar date.</p></div>
+    </div>
+    <p class="fine">All prices in USD, per participating university. Travel and accommodation are the responsibility of the university. Booth allocation is first come, first served. Roadshow dates and the seminar calendar will be shared on confirmation.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact" data-name="Contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="head">
+        <span class="eyebrow" data-reveal>Get in touch</span>
+        <h2><span class="line"><span>Let's put your university</span></span><span class="line"><span>on their path.</span></span></h2>
+      </div>
+      <svg class="illo" data-draw viewBox="0 0 520 560" role="img" aria-label="A graduate seen from behind, throwing a cap into the air">
+        <g class="art">
+          <path class="k" d="M300 112 L382 92 L432 122 L350 144 Z"/>
+          <path class="k" d="M338 132 L340 152 C360 160 392 154 408 144 L406 122"/>
+          <path class="l t" d="M384 114 C396 132 398 152 392 172"/>
+          <path class="k" d="M96 96 L150 70 L196 88 L142 114 Z"/>
+          <path class="l t" d="M146 92 C152 106 150 120 144 132"/>
+          <path class="l t" d="M250 60 L256 30 M282 70 L306 48 M222 72 L200 50"/>
+          <path class="k" d="M150 454 C120 384 110 304 130 234 L170 240 C160 304 172 374 200 434 Z"/>
+          <path class="k" d="M370 454 C400 384 410 304 390 234 L350 240 C360 304 348 374 320 434 Z"/>
+          <path class="s" d="M126 240 C114 208 130 186 152 190 C174 194 182 216 170 240 Z"/>
+          <path class="s" d="M394 240 C406 208 390 186 368 190 C346 194 338 216 350 240 Z"/>
+          <path class="k" d="M88 564 C84 472 130 422 260 416 C390 422 436 472 432 564 Z"/>
+          <path class="s" d="M172 432 C220 456 300 456 348 432 L338 454 C290 476 230 476 182 454 Z"/>
+          <path class="s" d="M212 352 C208 302 232 274 260 274 C290 274 314 302 310 352 C310 392 290 414 260 414 C232 414 212 392 212 352 Z"/>
+          <path class="l t" d="M213 344 C198 338 196 366 213 366"/>
+          <path class="l t" d="M309 344 C324 338 326 366 309 366"/>
+          <path class="k" d="M210 362 C204 296 232 268 262 270 C294 272 318 298 312 362 C300 376 278 382 262 382 C244 382 222 376 210 362 Z"/>
+        </g>
+      </svg>
+    </div>
+    <div class="channels">
+      <div class="ch" data-reveal style="--i:0"><span class="eyebrow">Email</span><span class="v" id="vEmail">admissions@get-ed.co</span><div class="row"><button class="pill" type="button" data-copy="vEmail">Copy</button><a class="pill" href="mailto:admissions@get-ed.co">Write</a></div></div>
+      <div class="ch" data-reveal style="--i:1"><span class="eyebrow">Phone &amp; WhatsApp</span><span class="v" id="vPhone" dir="ltr">+20 155 355 1711</span><div class="row"><button class="pill" type="button" data-copy="vPhone">Copy</button><a class="pill" href="https://wa.me/201553551711" target="_blank" rel="noopener">WhatsApp</a></div></div>
+      <div class="ch" data-reveal style="--i:2"><span class="eyebrow">Web</span><span class="v" id="vWeb">get-ed.co</span><div class="row"><button class="pill" type="button" data-copy="vWeb">Copy</button><a class="pill" href="https://get-ed.co" target="_blank" rel="noopener">Visit</a></div></div>
+    </div>
+    <footer class="foot">
+      <div class="logos">
+        <img src="assets/logo-geted.png" alt="GET ED" width="360" height="120">
+        <span>×</span>
+        <img src="assets/logo-eshra7ly.png" alt="Eshra7ly" width="366" height="171">
+        <span>×</span>
+        <img src="assets/logo-masar.png" alt="Masar" width="210" height="80">
+      </div>
+      <span>A proposal for universities · 2026/27</span>
+    </footer>
+  </div>
+</section>
+</main>
+</div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="boil" x="-5%" y="-5%" width="110%" height="110%">
+    <feTurbulence id="boilNoise" type="fractalNoise" baseFrequency="0.018" numOctaves="2" seed="1"/>
+    <feDisplacementMap in="SourceGraphic" scale="3.2"/>
+  </filter>
+</svg>
+
+<script>
+(() => {
+  const root = document.documentElement;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce) root.classList.add('motion'); else root.classList.add('no-motion');
+
+  /* ---- prepare illustrations: stagger index + normalised path length ---- */
+  document.querySelectorAll('.illo[data-draw]').forEach(svg => {
+    let d = 0;
+    svg.querySelectorAll('.s,.k,.l,.p,.f,.dot').forEach(el => {
+      if (!el.classList.contains('f') && !el.classList.contains('dot')) el.setAttribute('pathLength', '1');
+      el.style.setProperty('--d', d++);
+    });
+  });
+
+  /* ---- split headline lines get stagger indexes ---- */
+  document.querySelectorAll('h1, h2, .tag').forEach(h => {
+    h.querySelectorAll('.line').forEach((l, i) => l.style.setProperty('--i', i));
+  });
+
+  /* ---- foreword word-by-word ---- */
+  const fw = document.getElementById('forewordText');
+  let words = [];
+  if (fw && !reduce) {
+    fw.innerHTML = fw.textContent.trim().split(/\s+/).map(w => `<span class="w">${w}</span>`).join(' ');
+    words = [...fw.querySelectorAll('.w')];
+    words.forEach(w => w.style.opacity = .16);
+  }
+
+  /* ---- counters ---- */
+  const fmt = (v, dec) => dec ? v.toFixed(dec) : Math.round(v).toLocaleString('en-US');
+  function runCount(el) {
+    const to = parseFloat(el.dataset.count), from = parseFloat(el.dataset.from || 0);
+    const dec = +(el.dataset.dec || 0), suf = el.dataset.suffix || '';
+    if (reduce) { el.textContent = fmt(to, dec) + suf; return; }
+    const dur = 1600, t0 = performance.now();
+    const step = t => {
+      const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 4);
+      el.textContent = fmt(from + (to - from) * e, dec) + suf;
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  /* ---- in-view observer ---- */
+  const targets = document.querySelectorAll('[data-reveal], .line, .illo[data-draw], [data-count], #bars, #chart, #strike, .photo, #masarOpen');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      const el = en.target;
+      if (el.matches('.illo')) el.classList.add('drawn'); else el.classList.add('in');
+      if (el.dataset.count !== undefined && !el.dataset.done) { el.dataset.done = 1; runCount(el); }
+      io.unobserve(el);
+    });
+  }, { threshold: 0.18, rootMargin: '0px 0px -6% 0px' });
+  if (reduce) {
+    targets.forEach(el => el.matches('.illo') ? el.classList.add('drawn') : el.classList.add('in'));
+  } else {
+    document.querySelectorAll('[data-count]').forEach(el => {
+      const from = el.dataset.from || 0; const dec = +(el.dataset.dec || 0);
+      el.textContent = fmt(parseFloat(from), dec) + (el.dataset.suffix || '');
+    });
+    targets.forEach(el => io.observe(el));
+  }
+
+  /* ---- line boil: re-seed the displacement noise for a hand-drawn shimmer ---- */
+  const noise = document.getElementById('boilNoise');
+  const arts = [...document.querySelectorAll('.illo .art')];
+  if (!reduce) {
+    arts.forEach(a => a.setAttribute('filter', 'url(#boil)'));
+    let seed = 1;
+    setInterval(() => { if (!document.hidden) noise.setAttribute('seed', (seed = seed % 4 + 1)); }, 160);
+  }
+
+  /* ---- chapter rail ---- */
+  const run = document.getElementById('railRun');
+  const head = document.getElementById('railHead');
+  const stopsEl = document.getElementById('stops');
+  const chapters = [...document.querySelectorAll('[data-chapter]')].filter(s => s.dataset.chapter);
+  const railSvg = document.getElementById('railSvg'), railTrack = document.getElementById('railTrack');
+  const BASE = run.getAttribute('d');
+  let len = 1;
+  // rebuild the rail in pixel units so the dash length and the head dot share one scale
+  function buildRail() {
+    const r = railSvg.getBoundingClientRect(); if (!r.width || !r.height) return;
+    let k = 0;
+    const d = BASE.replace(/-?\d+(\.\d+)?/g, n => (+n * (k++ % 2 ? r.height / 1000 : r.width / 88)).toFixed(1));
+    railSvg.setAttribute('viewBox', `0 0 ${r.width} ${r.height}`);
+    run.setAttribute('d', d); railTrack.setAttribute('d', d);
+    len = run.getTotalLength(); run.style.strokeDasharray = len;
+  }
+  buildRail();
+  const stops = chapters.map(sec => {
+    const b = document.createElement('button');
+    b.className = 'stop'; b.type = 'button';
+    b.innerHTML = `<span><em>${sec.dataset.chapter}</em>${sec.dataset.name}</span>`;
+    b.setAttribute('aria-label', `Chapter ${sec.dataset.chapter}: ${sec.dataset.name}`);
+    b.addEventListener('click', () => sec.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' }));
+    stopsEl.appendChild(b);
+    return { sec, b, t: 0 };
+  });
+  const pointAt = t => run.getPointAtLength(Math.max(0, Math.min(1, t)) * len);
+  function layoutStops() {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    stops.forEach(s => {
+      s.t = Math.min(1, Math.max(0, (s.sec.getBoundingClientRect().top + scrollY - innerHeight * .35) / max));
+      const pt = pointAt(s.t);
+      s.b.style.left = pt.x + 'px'; s.b.style.top = pt.y + 'px';
+    });
+  }
+
+  /* ---- formats pinned horizontal scroll ---- */
+  const formats = document.getElementById('formats');
+  const track = document.getElementById('track');
+  const fbars = [...document.querySelectorAll('.fprog i')];
+  const pinMQ = matchMedia('(min-width: 900px)');
+  const setPin = () => formats.classList.toggle('pin', pinMQ.matches && !reduce);
+  setPin(); pinMQ.addEventListener('change', () => { setPin(); buildRail(); layoutStops(); update(); });
+
+  /* ---- planner ---- */
+  const planner = {
+    1: { pass: '$2,500', inc: '1 × $2,500', best: 'pass', save: '1 stop', label: 'is all you need. The Fair Pass covers it.', verdict: 'For a single stop, the Fair Pass is the right fit. Upgrade to the Masar Partner any time you want more of the roadshow.' },
+    2: { pass: '$5,000', inc: '2 × $2,500', best: 'partner', save: '+$1,000', label: 'buys a third fair, two webinars and seminar access.', verdict: 'Two fairs one at a time cost $5,000. For $1,000 more, the Masar Partner adds a third fair, two webinars to the Eshra7ly community and seminar access.' },
+    3: { pass: '$7,500', inc: '3 × $2,500', best: 'partner', save: '20%', label: 'saved on fairs alone, before a single webinar.', verdict: 'Three fairs bought one at a time cost $7,500. As a Masar Partner they cost $6,000, and the webinars and seminars come with them.' }
+  };
+  const $ = id => document.getElementById(id);
+  document.querySelectorAll('[data-fairs]').forEach(btn => btn.addEventListener('click', () => {
+    const n = btn.dataset.fairs, d = planner[n];
+    document.querySelectorAll('[data-fairs]').forEach(b => b.setAttribute('aria-pressed', b === btn));
+    $('passAmt').textContent = d.pass; $('passInc').textContent = d.inc;
+    $('rowPass').classList.toggle('best', d.best === 'pass');
+    $('rowPartner').classList.toggle('best', d.best === 'partner');
+    $('saveAmt').textContent = d.save; $('saveLabel').textContent = d.label; $('verdict').textContent = d.verdict;
+    if (!reduce) $('saveBox').animate([{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 500, easing: 'cubic-bezier(.22,1,.36,1)' });
+  }));
+
+  /* ---- copy buttons ---- */
+  document.querySelectorAll('[data-copy]').forEach(btn => btn.addEventListener('click', () => {
+    const el = $(btn.dataset.copy), text = el.textContent.trim();
+    const done = () => { btn.textContent = 'Copied'; setTimeout(() => btn.textContent = 'Copy', 1600); };
+    const fallback = () => { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = 'Selected'; setTimeout(() => btn.textContent = 'Copy', 1600); };
+    try { navigator.clipboard.writeText(text).then(done, fallback); } catch (e) { fallback(); }
+  }));
+
+  /* ---- scroll loop ---- */
+  const topbar = $('top'), prog = document.querySelector('.progress i');
+  let ticking = false;
+  function update() {
+    ticking = false;
+    const max = document.documentElement.scrollHeight - innerHeight;
+    const p = max > 0 ? scrollY / max : 0;
+    prog.style.setProperty('--p', p);
+    topbar.classList.toggle('scrolled', scrollY > 10);
+    run.style.strokeDashoffset = len * (1 - p);
+    const hp = pointAt(p); head.style.left = hp.x + 'px'; head.style.top = (hp.y + 92) + 'px';
+    let cur = -1;
+    stops.forEach((s, i) => { const passed = p >= s.t - 0.002; s.b.classList.toggle('passed', passed); if (passed) cur = i; });
+    stops.forEach((s, i) => s.b.classList.toggle('current', i === cur));
+
+    if (words.length) {
+      const r = fw.getBoundingClientRect();
+      const fp = Math.min(1, Math.max(0, (innerHeight * .85 - r.top) / (r.height + innerHeight * .35)));
+      const lit = Math.floor(fp * words.length * 1.05);
+      words.forEach((w, i) => w.style.opacity = i < lit ? 1 : .16);
+    }
+
+    if (formats.classList.contains('pin')) {
+      const r = formats.getBoundingClientRect();
+      const total = formats.offsetHeight - (innerHeight - 68);
+      const fp = Math.min(1, Math.max(0, -r.top / total));
+      const dist = track.scrollWidth - track.clientWidth;
+      track.style.transform = `translateX(${-fp * Math.max(0, dist)}px)`;
+      fbars.forEach((b, i) => b.style.setProperty('--f', Math.min(1, Math.max(0, fp * 4 - i))));
+      track.querySelectorAll('.illo').forEach(svg => {
+        const sr = svg.getBoundingClientRect();
+        if (sr.left < innerWidth * .9) svg.classList.add('drawn');
+      });
+    } else track.style.transform = '';
+  }
+  const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', () => { buildRail(); layoutStops(); update(); });
+  addEventListener('load', () => { buildRail(); layoutStops(); update(); });
+  layoutStops(); update();
+})();
+</script>
