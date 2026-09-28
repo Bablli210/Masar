@@ -347,6 +347,18 @@ section{position:relative}
 .hero-by .chip-geted img{height:30px}.hero-by .chip-eshra7ly img{height:50px}
 .duo .eq .chip{justify-self:start;min-height:52px}
 .foot .logos{gap:22px}.foot .chip-geted img{height:22px}.foot .chip-eshra7ly img{height:38px}.foot .chip-masar img{height:34px}
+
+/* intro video */
+.opener{position:fixed;inset:0;z-index:100;background:var(--paper);display:grid;place-items:center;transition:opacity .9s var(--ease),visibility .9s}
+.opener.out{opacity:0;visibility:hidden}
+.opener video{width:100%;height:100%;object-fit:contain;background:var(--paper)}
+.opener .ctrl{position:absolute;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));display:flex;gap:10px}
+.opener .ctrl .pill{background:color-mix(in srgb,var(--paper) 80%,transparent);backdrop-filter:blur(6px)}
+.opener .play{position:absolute;inset:auto;display:none}
+.opener.blocked .play{display:inline-flex}
+.opener .bar{position:absolute;left:0;right:0;top:0;height:3px}
+.opener .bar i{display:block;height:100%;background:var(--blue);transform-origin:0 50%;transform:scaleX(var(--p,0))}
+html.intro-on,html.intro-on body{overflow:hidden}
 /* ============ illustrations ============ */
 .illo{display:block;overflow:visible}
 .illo .s{fill:var(--oat);stroke:var(--ink);stroke-width:var(--line);stroke-linecap:round;stroke-linejoin:round}
@@ -391,6 +403,54 @@ section{position:relative}
 }
 </style>
 
+<div class="opener" id="intro" role="dialog" aria-label="Masar intro video">
+  <video id="introVideo" poster="assets/intro-poster.jpg" muted playsinline preload="auto"><source src="assets/intro.mp4" type="video/mp4"><source id="introLast" src="assets/intro.webm" type="video/webm"></video>
+  <div class="bar" aria-hidden="true"><i id="introBar"></i></div>
+  <button class="btn play" type="button" id="introPlay">Play intro <span class="arr">▶</span></button>
+  <div class="ctrl">
+    <button class="pill" type="button" id="introSound" aria-pressed="false">Sound on</button>
+    <button class="pill" type="button" id="introSkip">Skip intro →</button>
+  </div>
+</div>
+<script>
+(() => {
+  const root = document.documentElement, box = document.getElementById('intro'), v = document.getElementById('introVideo');
+  let seen = false;
+  try { seen = sessionStorage.getItem('masarIntroSeen') === '1'; } catch (e) {}
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (seen || reduce || location.hash.length > 1) { box.remove(); return; }
+  root.classList.add('intro-on');
+  let done;
+  window.__masarIntro = new Promise(r => done = r);
+  const END = 12.7; // leave on the finished lockup, before the video's own fade
+  let closed = false;
+  function close() {
+    if (closed) return; closed = true;
+    try { sessionStorage.setItem('masarIntroSeen', '1'); } catch (e) {}
+    box.classList.add('out'); root.classList.remove('intro-on');
+    scrollTo(0, 0); done();
+    let vol = v.volume; const fade = setInterval(() => { vol = Math.max(0, vol - .08); v.volume = vol; if (!vol) { clearInterval(fade); v.pause(); } }, 60);
+    setTimeout(() => box.remove(), 1200);
+  }
+  v.addEventListener('timeupdate', () => {
+    document.getElementById('introBar').style.setProperty('--p', Math.min(1, v.currentTime / END));
+    if (v.currentTime >= END) close();
+  });
+  v.addEventListener('ended', close);
+  v.addEventListener('error', close);
+  document.getElementById('introLast').addEventListener('error', close); // no playable source
+  const start = () => v.play().then(() => box.classList.remove('blocked')).catch(() => box.classList.add('blocked'));
+  start();
+  document.getElementById('introPlay').addEventListener('click', start);
+  document.getElementById('introSkip').addEventListener('click', close);
+  const snd = document.getElementById('introSound');
+  snd.addEventListener('click', () => {
+    v.muted = !v.muted; snd.setAttribute('aria-pressed', !v.muted); snd.textContent = v.muted ? 'Sound on' : 'Sound off';
+    if (v.paused) start();
+  });
+  addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+})();
+</script>
 <div class="progress" aria-hidden="true"><i></i></div>
 
 <nav class="rail" aria-label="Chapters">
@@ -1015,7 +1075,7 @@ section{position:relative}
       const from = el.dataset.from || 0; const dec = +(el.dataset.dec || 0);
       el.textContent = fmt(parseFloat(from), dec) + (el.dataset.suffix || '');
     });
-    targets.forEach(el => io.observe(el));
+    (window.__masarIntro || Promise.resolve()).then(() => targets.forEach(el => io.observe(el)));
   }
 
   /* ---- line boil: re-seed the displacement noise for a hand-drawn shimmer ---- */
