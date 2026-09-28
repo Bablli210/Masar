@@ -7,7 +7,7 @@
 :root{
   color-scheme: light;
   --paper:#F0F0F0; --oat:#E5DAD0; --ink:#111111; --ink-2:#555555;
-  --hair:#9B9B9B; --c-masar:#1AA0E6; --c-geted:#FFFFFF; --c-eshra7ly:#FFFFFF; --hair-strong:#8A8A8A; --blue:#1AA0E6;
+  --hair:#9B9B9B; --hair-strong:#8A8A8A; --blue:#1AA0E6;
   --font:"Montserrat","Alexandria",system-ui,-apple-system,"Segoe UI",sans-serif;
   --font-ar:"Alexandria","Montserrat",system-ui,sans-serif;
   --gutter:clamp(16px,4vw,64px);
@@ -293,15 +293,8 @@ section{position:relative}
 .foot .logos img{height:24px;width:auto}
 
 
-/* v3: logo chips, glance strip, partners, teachers, funnel */
-.chip{display:inline-flex;align-items:center;justify-content:center;border-radius:14px;padding:10px 16px;line-height:0;transition:transform .35s var(--ease)}
-.chip:hover{transform:translateY(-2px) rotate(-1.5deg)}
-.chip img{height:28px;width:auto;display:block}
-.chip-masar{background:var(--c-masar)} .chip-geted{background:var(--c-geted);box-shadow:inset 0 0 0 1.5px rgba(0,174,239,.35)} .chip-eshra7ly{background:var(--c-eshra7ly);box-shadow:inset 0 0 0 1.5px rgba(31,60,140,.25);padding:6px 14px}
-.chip-eshra7ly img{height:46px}.hero-by .chip-eshra7ly img{height:40px}.foot .chip-eshra7ly img{height:34px}
-.brand .chip{padding:7px 12px;border-radius:12px}.brand .chip img{height:24px}
+/* v3: glance strip, partners, teachers, funnel */
 .hero-by{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:36px}
-.hero-by .chip img{height:26px}
 .strip{border-block:1.5px solid var(--hair)}
 .glance{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0}
 @media (min-width:900px){ .glance{grid-template-columns:repeat(4,1fr)} }
@@ -313,7 +306,6 @@ section{position:relative}
 .duo{display:grid;gap:14px;grid-template-columns:1fr;margin-top:10px}
 @media (min-width:640px){ .duo{grid-template-columns:1fr 1fr} }
 .duo .eq{gap:16px}
-.duo .eq .chip{justify-self:start}
 .duo .eq p{font-size:1.05rem}
 .mini{display:flex;flex-direction:column;gap:6px;border-top:1.5px solid var(--hair);padding-top:12px;font-size:.9rem;color:var(--ink-2)}
 .mini b{color:var(--ink);font-weight:550;font-variant-numeric:tabular-nums}
@@ -340,14 +332,21 @@ section{position:relative}
 .steps3{list-style:none;padding:0;margin:18px 0 0;display:flex;flex-wrap:wrap;gap:10px;counter-reset:st}
 .steps3 li{counter-increment:st;border:1.5px solid var(--hair);border-radius:999px;padding:.55em 1.1em .55em .55em;display:flex;align-items:center;gap:10px;font-size:.95rem}
 .steps3 li::before{content:counter(st);width:1.9em;height:1.9em;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-size:.8rem}
-.foot .logos .chip img{height:22px}
-.foot .logos{gap:10px}
 
 .wordmark{display:inline-block;height:.62em;width:auto;vertical-align:baseline;margin-left:.08em}
 .hero h1 .ar .wordmark{height:1.9em;transform:translateY(.12em)}
-.chip-masar img{height:30px}.brand .chip-masar img{height:26px}.foot .chip-masar img{height:24px}
-.hero-by .chip.chip-eshra7ly img,.duo .chip.chip-eshra7ly img{height:68px}
-.foot .logos .chip.chip-eshra7ly img{height:46px}
+/* logos: no background, sized by optical weight */
+.chip{display:inline-flex;align-items:center;line-height:0;transition:transform .35s var(--ease)}
+.chip:hover{transform:translateY(-2px)}
+.chip img{display:block;width:auto}
+.chip-geted img{height:26px}
+.chip-eshra7ly img{height:44px}
+.chip-masar img{height:40px}
+.brand .chip-masar img{height:34px}
+.hero-by{gap:18px}
+.hero-by .chip-geted img{height:30px}.hero-by .chip-eshra7ly img{height:50px}
+.duo .eq .chip{justify-self:start;min-height:52px}
+.foot .logos{gap:22px}.foot .chip-geted img{height:22px}.foot .chip-eshra7ly img{height:38px}.foot .chip-masar img{height:34px}
 /* ============ illustrations ============ */
 .illo{display:block;overflow:visible}
 .illo .s{fill:var(--oat);stroke:var(--ink);stroke-width:var(--line);stroke-linecap:round;stroke-linejoin:round}
@@ -407,7 +406,7 @@ section{position:relative}
 <header class="top" id="top">
   <div class="container">
     <a class="brand" href="#hero" aria-label="Masar, back to top">
-      <span class="chip chip-masar"><img src="assets/logo-masar-ar-w.png" alt="Masar, مسار" width="1062" height="538"></span>
+      <span class="chip chip-masar"><img src="assets/logo-masar-ar.png" alt="Masar, مسار" width="1062" height="538"></span>
       <span class="by">by GET ED × Eshra7ly</span>
     </a>
     <div class="nav">
@@ -431,7 +430,7 @@ section{position:relative}
       <div>
         <h1 aria-label="Masar">
           <span class="line"><span>Masar</span></span>
-          <span class="line ar"><span><img class="wordmark" src="assets/logo-masar-ar-ink.png" alt="" width="1062" height="538"></span></span>
+          <span class="line ar"><span><img class="wordmark" src="assets/logo-masar-ar.png" alt="" width="1062" height="538"></span></span>
         </h1>
         <p class="tag"><span class="line"><span>Meet the students who are</span></span><span class="line"><span>ready to choose.</span></span></p>
         <p class="intro" data-reveal style="--i:4">A university roadshow across Egypt and the Gulf. We fill the room with pre-qualified students, their parents and the teachers they trust.</p>
@@ -439,7 +438,7 @@ section{position:relative}
           <a class="btn" href="#contact">Book your booth <span class="arr">→</span></a>
           <a class="pill" href="#partners">See how it works</a>
         </div>
-        <div class="hero-by" data-reveal style="--i:6"><span class="muted">By</span><span class="chip chip-geted"><img src="assets/logo-geted-color.png" alt="GET ED" width="720" height="236"></span><span class="muted">×</span><span class="chip chip-eshra7ly"><img src="assets/logo-eshra7ly-color.png" alt="Eshra7ly" width="567" height="603"></span></div>
+        <div class="hero-by" data-reveal style="--i:6"><span class="muted">By</span><span class="chip chip-geted"><img src="assets/logo-geted.png" alt="GET ED" width="720" height="151"></span><span class="muted">×</span><span class="chip chip-eshra7ly"><img src="assets/logo-eshra7ly.png" alt="Eshra7ly" width="900" height="311"></span></div>
       </div>
       <svg class="illo" data-draw viewBox="0 0 640 600" role="img" aria-label="A student and her father, seen from behind, at a board mapping a route between cities">
         <g class="art">
@@ -498,9 +497,9 @@ section{position:relative}
         <span class="eyebrow" data-reveal><b>Chapter I</b> Who's behind it</span>
         <h2><span class="line"><span>Two partners.</span></span><span class="line"><span>One path.</span></span></h2>
         <div class="duo">
-          <div class="eq" data-reveal style="--i:0"><span class="chip chip-eshra7ly"><img src="assets/logo-eshra7ly-color.png" alt="Eshra7ly" width="567" height="603"></span><p><b>The audience.</b> The largest online education platform in the Middle East.</p>
+          <div class="eq" data-reveal style="--i:0"><span class="chip chip-eshra7ly"><img src="assets/logo-eshra7ly.png" alt="Eshra7ly" width="900" height="311"></span><p><b>The audience.</b> The largest online education platform in the Middle East.</p>
             <div class="mini"><span><b data-count="27000">27,000</b> students</span><span><b data-count="467" data-suffix="K">467K</b> views in 4 months</span></div></div>
-          <div class="eq" data-reveal style="--i:1"><span class="chip chip-geted"><img src="assets/logo-geted-color.png" alt="GET ED" width="720" height="236"></span><p><b>The pathway.</b> Official representatives of universities worldwide. Free for every student.</p>
+          <div class="eq" data-reveal style="--i:1"><span class="chip chip-geted"><img src="assets/logo-geted.png" alt="GET ED" width="720" height="151"></span><p><b>The pathway.</b> Official representatives of universities worldwide. Free for every student.</p>
             <div class="mini"><span><b data-count="750" data-suffix="+">750+</b> universities</span><span><b data-count="20" data-suffix="+">20+</b> countries</span></div></div>
         </div>
         <p class="together" data-reveal>GET ED is the official and exclusive study abroad agency of Eshra7ly.</p>
@@ -939,7 +938,7 @@ section{position:relative}
       <div class="ch" data-reveal style="--i:2"><span class="eyebrow">Web</span><span class="v" id="vWeb">get-ed.co</span><div class="row"><button class="pill" type="button" data-copy="vWeb">Copy</button><a class="pill" href="https://get-ed.co" target="_blank" rel="noopener">Visit</a></div></div>
     </div>
     <footer class="foot">
-      <div class="logos"><span class="chip chip-geted"><img src="assets/logo-geted-color.png" alt="GET ED" width="720" height="236"></span><span class="chip chip-eshra7ly"><img src="assets/logo-eshra7ly-color.png" alt="Eshra7ly" width="567" height="603"></span><span class="chip chip-masar"><img src="assets/logo-masar-ar-w.png" alt="Masar, مسار" width="1062" height="538"></span></div>
+      <div class="logos"><span class="chip chip-geted"><img src="assets/logo-geted.png" alt="GET ED" width="720" height="151"></span><span class="chip chip-eshra7ly"><img src="assets/logo-eshra7ly.png" alt="Eshra7ly" width="900" height="311"></span><span class="chip chip-masar"><img src="assets/logo-masar-ar.png" alt="Masar, مسار" width="1062" height="538"></span></div>
       <span>Prices in USD, per institution. Roadshow dates shared on confirmation.</span>
     </footer>
   </div>
