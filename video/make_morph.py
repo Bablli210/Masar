@@ -13,7 +13,7 @@ from PIL import Image, ImageDraw, ImageFont
 ROOT = Path(__file__).resolve().parent
 ASSETS = ROOT.parent / "site" / "assets"
 FONTS = ROOT / "fonts"
-W, H, FPS, DUR = 1920, 1080, 30, 13.0
+W, H, FPS, DUR = 1920, 1080, 60, 14.0
 SR = 44100
 
 PAPER = np.array([240, 240, 240], np.float32)
@@ -167,48 +167,51 @@ if len(left): src_idx[left] = rng.integers(0, len(sx), len(left)); used[src_idx[
 P0x, P0y = sx[src_idx], sy[src_idx]
 C0 = scol[src_idx]; C1 = np.where(is_en[:, None], np.array(INK, np.float32), tcol)
 mult = used[src_idx].astype(np.float32)
-# lift: push outward from each logo's centre
+# one continuous cubic curve per particle: out of the logo, around, and into place
 gcx, gcy = GX_END + geted.width / 2, CY
 ecx, ecy = EX_END + eshra.width / 2, CY
-cxs = np.where(P0x < 960, gcx, ecx); cys = np.full(N, CY)
-dx, dy = P0x - cxs, P0y - cys; dn = np.hypot(dx, dy) + 1e-3
-lift = rng.uniform(18, 70, N)
-P1x = P0x + dx / dn * lift + rng.normal(0, 10, N)
-P1y = P0y + dy / dn * lift + rng.normal(0, 10, N) - 12
-# bezier controls: swirl out, then arc in from above/below
-ang = rng.uniform(0, 2 * np.pi, N)
-sw = rng.uniform(120, 340, N)
-C1x, C1y = P1x + np.cos(ang) * sw, P1y + np.sin(ang) * sw * .7 - 60
+cxs = np.where(P0x < 960, gcx, ecx)
+dx, dy = P0x - cxs, P0y - CY; dn = np.hypot(dx, dy) + 1e-3
+ox, oy = dx / dn, dy / dn                                   # outward from own logo
+rx, ry = P0x - 960, P0y - CY; rn = np.hypot(rx, ry) + 1e-3
+tgx, tgy = -ry / rn, rx / rn                                # shared clockwise flow
+lift = rng.uniform(60, 140, N); swirl = rng.uniform(60, 150, N)
+C1x = P0x + ox * lift + tgx * swirl
+C1y = P0y + oy * lift * .8 + tgy * swirl - 30
 side = np.where(ty < LCY, -1, 1)
-C2x = tx + rng.normal(0, 60, N); C2y = ty + side * rng.uniform(60, 180, N)
-# delays: English builds left->right, Arabic right->left, meeting in the middle
+arc = rng.uniform(70, 150, N)
+C2x = tx - tgx * arc * .35 + rng.normal(0, 25, N)
+C2y = ty + side * arc
+# stagger: English builds left->right, Arabic right->left, meeting in the middle
 en_n = (tx - EN_X) / masar_en.width
 ar_n = (AR_X + masar_ar.width - tx) / masar_ar.width
-delay = np.where(is_en, en_n, ar_n) * .75 + rng.uniform(0, .18, N)
-dur = rng.uniform(2.0, 2.45, N)
-T_DIS, T_LIFT, T_GO = 2.9, 3.5, 3.25
-# ghosts: source pixels nobody picked scatter and fade
+delay = np.where(is_en, en_n, ar_n) * .7 + rng.uniform(0, .15, N)
+dur = rng.uniform(2.8, 3.25, N)
+T_DIS = 2.9                 # dissolve starts
+T_GO = T_DIS + .15          # flight starts (plus per-particle delay)
+T_LOCK = 7.0                # crisp lockup starts fading in
+# ghosts: source pixels nobody picked drift outward and fade
 gi = np.where(used == 0)[0]
 Gx, Gy, Gc = sx[gi], sy[gi], scol[gi]
 gdx, gdy = Gx - np.where(Gx < 960, gcx, ecx), Gy - CY; gdn = np.hypot(gdx, gdy) + 1e-3
-Gv = rng.uniform(40, 160, len(gi))
+Gv = rng.uniform(40, 130, len(gi))
+
+def smoother(x):  # zero velocity and acceleration at both ends
+    x = np.clip(x, 0, 1); return x * x * x * (x * (6 * x - 15) + 10)
 
 def particle_state(t):
     """positions, colours, alphas for all particles at time t (plus ghosts)."""
-    ul = ease_out(np.full(N, (t - T_DIS) / (T_LIFT - T_DIS)))
-    u = ease_io((t - T_GO - delay) / dur)
-    ax = P0x + (P1x - P0x) * ul; ay = P0y + (P1y - P0y) * ul
+    u = smoother((t - T_GO - delay) / dur)
     b0, b1, b2, b3 = (1 - u) ** 3, 3 * (1 - u) ** 2 * u, 3 * (1 - u) * u ** 2, u ** 3
-    x = b0 * ax + b1 * C1x + b2 * C2x + b3 * tx
-    y = b0 * ay + b1 * C1y + b2 * C2y + b3 * ty
-    cu = ease_io((t - T_GO - delay - dur * .35) / (dur * .6))[:, None]
+    x = b0 * P0x + b1 * C1x + b2 * C2x + b3 * tx
+    y = b0 * P0y + b1 * C1y + b2 * C2y + b3 * ty
+    cu = smoother((u - .3) / .6)[:, None]
     col = C0 * (1 - cu) + C1 * cu
     a0 = 1 / mult
-    alpha = a0 + (1 - a0) * np.clip(u * 1.4, 0, 1)
-    gt = np.clip((t - T_DIS) / 1.1, 0, 1)
-    gx = Gx + gdx / gdn * Gv * ease_out(np.full(len(gi), gt)); gy = Gy + gdy / gdn * Gv * ease_out(np.full(len(gi), gt)) - 20 * gt
-    ga = (1 - gt) ** 1.5
-    return x, y, col, alpha, gx, gy, Gc, np.full(len(gi), ga)
+    alpha = a0 + (1 - a0) * smoother(u / .5)
+    gt = smoother(np.full(len(gi), (t - T_DIS) / 1.6))
+    gx = Gx + gdx / gdn * Gv * gt; gy = Gy + gdy / gdn * Gv * gt - 24 * gt
+    return x, y, col, alpha, gx, gy, Gc, np.clip(1 - gt, 0, 1) ** 1.3
 
 # splat kernel: 4x4 taps, cone falloff
 OFF = np.array([(i, j) for j in range(-1, 3) for i in range(-1, 3)], np.float32)
@@ -230,10 +233,10 @@ def draw_particles(frame, t, strength=1.0):
     x, y, col, al, gx, gy, gc, ga = particle_state(t)
     xs, ys, cs, as_ = [x, gx], [y, gy], [col, gc], [al, ga]
     # motion trails from earlier samples, weighted by speed
-    for k, (lag, wgt) in enumerate(((1 / 60, .55), (2 / 60, .3))):
+    for k, (lag, wgt) in enumerate(((1 / 120, .5), (2 / 120, .32), (3 / 120, .18))):
         px, py, *_ = particle_state(t - lag)
         sp = np.hypot(x - px, y - py) / lag
-        f = np.clip(sp / 500, 0, 1) * wgt
+        f = np.clip(sp / 420, 0, 1) * wgt
         m = f > .02
         xs.append(px[m]); ys.append(py[m]); cs.append(col[m]); as_.append(al[m] * f[m])
     A, C = splat(np.concatenate(xs), np.concatenate(ys), np.concatenate(cs), np.concatenate(as_) * strength)
@@ -270,34 +273,34 @@ def path_layer(p):
 def render(t):
     fr = np.empty((H, W, 3), np.float32); fr[:] = PAPER
     # --- intro logos
-    a_in_g = ease_out(ramp(t, .3, 1.3)); a_in_e = ease_out(ramp(t, .45, 1.45))
-    drift = DRIFT * (1 - ease_io(ramp(t, 1.0, T_DIS)))
-    flo = math.sin(t * 2.1) * 3 * (1 - ramp(t, 2.2, T_DIS))
-    crisp_src = 1 - ramp(t, T_DIS, T_DIS + .35)
+    a_in_g = ease_out(ramp(t, .3, 1.6), 5); a_in_e = ease_out(ramp(t, .5, 1.8), 5)
+    drift = DRIFT * (1 - float(smoother(ramp(t, 1.2, T_DIS + .1))))
+    flo = math.sin(t * 1.6) * 2.5 * (1 - float(smoother(ramp(t, 1.8, T_DIS))))
+    crisp_src = 1 - float(smoother(ramp(t, T_DIS, T_DIS + .6)))
     if crisp_src > 0:
         over(fr, geted, GX_END - drift - 70 * (1 - a_in_g), GY + flo, a_in_g * crisp_src)
         over(fr, eshra, EX_END + drift + 70 * (1 - a_in_e), EY - flo, a_in_e * crisp_src)
-        ax = ease_out(ramp(t, .9, 1.4)) * (1 - ramp(t, 2.2, 2.7))
+        ax = ease_out(ramp(t, 1.0, 1.7), 4) * (1 - float(smoother(ramp(t, 2.1, 2.8))))
         over(fr, times, 960 - times.width / 2, CY - times.height / 2 - 4, ax, scale=1)
     # --- particles
-    if T_DIS <= t <= 7.2:
-        strength = ramp(t, T_DIS, T_DIS + .3) * (1 - ramp(t, 6.7, 7.15))
+    if T_DIS <= t <= T_LOCK + .85:
+        strength = float(smoother(ramp(t, T_DIS, T_DIS + .6))) * (1 - float(smoother(ramp(t, T_LOCK + .15, T_LOCK + .85))))
         draw_particles(fr, t, strength)
     # --- crisp lockup with a soft pop
-    a_lock = ramp(t, 6.6, 7.15)
+    a_lock = float(smoother(ramp(t, T_LOCK, T_LOCK + .75)))
     if a_lock > 0:
-        pop = 1 + .016 * math.sin(math.pi * ramp(t, 7.25, 7.8))
-        fl = math.sin((t - 7) * 1.4) * 2.5 * ramp(t, 9, 10)
-        fade = 1 - ramp(t, 12.3, 13.0)
+        pop = 1 + .012 * math.sin(math.pi * float(smoother(ramp(t, 7.85, 8.55))))
+        fl = math.sin((t - 7) * 1.1) * 2.5 * float(smoother(ramp(t, 9.5, 11)))
+        fade = 1 - float(smoother(ramp(t, 13.1, 14.0)))
         cx, cy = (LOCK_BOX[0] + LOCK_BOX[2]) / 2, (LOCK_BOX[1] + LOCK_BOX[3]) / 2
         over(fr, LOCK_IM, cx + (LOCK_OX - cx) * pop, cy + (LOCK_OY - cy) * pop + fl, a_lock * fade, scale=pop)
         # path
-        pp = ease_io(ramp(t, 7.5, 8.8))
+        pp = smoother(ramp(t, 8.1, 9.6))
         if pp > 0:
             im, bx, by = path_layer(float(pp))
             over(fr, im, bx, by + fl, fade)
         # taglines
-        a_t = ease_out(ramp(t, 8.3, 9.2))
+        a_t = ease_out(ramp(t, 8.9, 10.0), 4)
         ty0 = PATH_Y + 44 + 14 * (1 - a_t) + fl
         over(fr, tag_en, 960 - 24 - tag_en.width, ty0, a_t * fade)
         over(fr, tag_ar, 960 + 24, ty0 - 2, a_t * fade)
@@ -306,7 +309,7 @@ def render(t):
             d = Image.new("RGBA", (6, 6), (0, 0, 0, 0)); ImageDraw.Draw(d).ellipse((0, 0, 5, 5), fill=INK2 + (255,))
             over(fr, d, dotx, ty0 + tag_en.height / 2 - 3, a_t * fade)
         # by GET ED x Eshra7ly
-        a_b = ease_out(ramp(t, 9.2, 10.0))
+        a_b = ease_out(ramp(t, 9.8, 10.8), 4)
         row = [by_txt, small_geted, small_x, small_eshra]; gaps = 22
         tw = sum(i.width for i in row) + gaps * (len(row) - 1)
         x = 960 - tw / 2; by_c = 960 + 10 * (1 - a_b)
@@ -332,8 +335,8 @@ def synth():
     hz = lambda m: 440 * 2 ** ((m - 69) / 12)
     chords = [  # (start, end, midi notes)
         (0.0, 3.9, [41, 60, 64, 67, 69]),      # Fmaj9
-        (3.0, 7.6, [38, 57, 60, 64, 65, 69]),  # Dm9 (tension while it forms)
-        (6.8, 13.0, [41, 60, 62, 67, 69, 74]), # F6/9 arrival
+        (3.0, 8.2, [38, 57, 60, 64, 65, 69]),  # Dm9 (tension while it forms)
+        (7.5, 14.0, [41, 60, 62, 67, 69, 74]), # F6/9 arrival
     ]
     for a, b, notes in chords:
         for i, m in enumerate(notes):
@@ -353,8 +356,8 @@ def synth():
             hp = x[i] - lp - .6 * bp; bp += f * hp; lp += f * bp; y[i] = bp
         y *= env * amp / (np.abs(y).max() + 1e-9)
         L[k] += y * (1 - pan); Rt[k] += y * pan
-    noise_sweep(2.75, 3.9, 400, 3200, .09, .35)
-    noise_sweep(5.3, 7.3, 300, 5000, .06, .65)
+    noise_sweep(2.7, 4.2, 400, 3000, .08, .35)
+    noise_sweep(5.6, 7.9, 300, 4800, .055, .65)
     # sparkles as particles land
     land = T_GO + delay + dur
     for tt in rng.choice(np.sort(land), 46, replace=False):
@@ -364,11 +367,11 @@ def synth():
         s = np.sin(2 * np.pi * f * tt_) * np.exp(-tt_ / .045) * .012
         p = rng.uniform(.2, .8); L[k0:k1] += s * (1 - p); Rt[k0:k1] += s * p
     # chime + soft low bloom on arrival
-    for f0, t0, a in ((hz(77), 7.27, .06), (hz(84), 7.35, .045), (hz(89), 7.43, .03)):
+    for f0, t0, a in ((hz(77), 7.87, .06), (hz(84), 7.95, .045), (hz(89), 8.03, .03)):
         k0 = int(t0 * SR); tt_ = np.arange(n - k0) / SR
         s = sum(np.sin(2 * np.pi * f0 * r * tt_) * g * np.exp(-tt_ / d) for r, g, d in ((1, 1, 2.2), (2, .4, 1.2), (3.01, .18, .7), (4.2, .08, .4)))
         s *= a; L[k0:] += s * .55; Rt[k0:] += s * .45
-    k0 = int(7.25 * SR); tt_ = np.arange(n - k0) / SR
+    k0 = int(7.85 * SR); tt_ = np.arange(n - k0) / SR
     boom = np.sin(2 * np.pi * (43.65 * tt_ + 6 * (1 - np.exp(-tt_ / .08)))) * np.exp(-tt_ / .9) * .09
     L[k0:] += boom; Rt[k0:] += boom
     # reverb: FFT convolution with decaying noise
@@ -396,7 +399,7 @@ def synth():
 if __name__ == "__main__":
     if "--preview" in sys.argv:
         out = ROOT / "preview"; out.mkdir(exist_ok=True)
-        for t in (1.8, 3.2, 4.2, 5.2, 6.2, 7.6, 10.0):
+        for t in (1.8, 3.4, 4.4, 5.4, 6.4, 7.4, 11.0):
             Image.fromarray(render(t)).save(out / f"t{t:05.2f}.png")
         print("preview written", N, "particles,", len(gi), "ghosts"); sys.exit()
     import imageio_ffmpeg
@@ -410,7 +413,7 @@ if __name__ == "__main__":
     total = int(DUR * FPS)
     for i in range(total):
         pr.stdin.write(render(i / FPS).tobytes())
-        if i % 30 == 0: print(f"frame {i}/{total}", flush=True)
+        if i % 120 == 0: print(f"frame {i}/{total}", flush=True)
     pr.stdin.close(); pr.wait()
-    Image.fromarray(render(10.0)).save(ROOT / "masar-logo-morph-poster.png")
+    Image.fromarray(render(11.0)).save(ROOT / "masar-logo-morph-poster.png")
     print("wrote", mp4)
